@@ -5,16 +5,19 @@
 #include <QRgb>
 #include <QTabBar>
 #include <QToolBar>
-#include "submenuwindow.h"
+#include "databasehandler.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    SubMenuWindow *submenu = new SubMenuWindow();
-    ui->mdiAreaSubMenu->addSubWindow(submenu, Qt::FramelessWindowHint);
-    submenu->showMaximized();
+    subMenuExpanses = std::make_unique<SubMenuExpanses>();
+    ui->mdiAreaSubMenu->addSubWindow(subMenuExpanses.get(), Qt::FramelessWindowHint);
+    subMenuExpanses->showMaximized();
+
+    DataBaseHandler handler;
+    handler.connect();
 }
 
 MainWindow::~MainWindow()

@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <memory>
+#include "submenuexpanses.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +19,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    std::unique_ptr<SubMenuExpanses> subMenuExpanses;
 };
 #endif // MAINWINDOW_H
