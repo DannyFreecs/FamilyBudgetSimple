@@ -12,12 +12,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    subMenuExpanses = std::make_unique<SubMenuExpanses>();
-    ui->mdiAreaSubMenu->addSubWindow(subMenuExpanses.get(), Qt::FramelessWindowHint);
-    subMenuExpanses->showMaximized();
+    subMenuExpenses = std::make_unique<SubMenuExpenses>();
 
-    DataBaseHandler handler;
-    handler.connect();
+    ui->mdiAreaSubMenu->addSubWindow(subMenuExpenses.get(), Qt::FramelessWindowHint);
+    subMenuExpenses->showMaximized();
+
+    //DataBaseHandler handler;
+    //handler.connect();
 }
 
 MainWindow::~MainWindow()

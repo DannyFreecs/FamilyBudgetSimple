@@ -17,9 +17,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        submenuexpanses.h
-        submenuexpanses.cpp
-        submenuexpanses.ui
+        submenuexpenses.h
+        submenuexpenses.cpp
+        submenuexpenses.ui
         databasehandler.h
         databasehandler.cpp
 )
