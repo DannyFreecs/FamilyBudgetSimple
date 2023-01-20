@@ -23,10 +23,15 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Family Financies</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/Resources/MainWindow-icon.png</normaloff>:/icons/Resources/MainWindow-icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(221, 234, 240);
+
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -159,6 +164,8 @@ border: 2px solid black;</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

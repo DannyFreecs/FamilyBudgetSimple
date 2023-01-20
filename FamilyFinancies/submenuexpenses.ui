@@ -153,6 +153,9 @@ border: 2px solid black;</string>
               <property name="layoutDirection">
                <enum>Qt::RightToLeft</enum>
               </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
               <property name="styleSheet">
                <string notr="true">border: 0px;
 font: 700 16pt &quot;Verdana&quot;;
@@ -165,7 +168,7 @@ text-align: left;
               </property>
               <property name="icon">
                <iconset resource="resources.qrc">
-                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+                <normaloff>:/icons/Resources/arrow-right-icon.png</normaloff>:/icons/Resources/arrow-right-icon.png</iconset>
               </property>
               <property name="flat">
                <bool>true</bool>
@@ -294,7 +297,7 @@ background-color: rgb(190, 229, 240);</string>
               </property>
               <property name="icon">
                <iconset resource="resources.qrc">
-                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+                <normaloff>:/icons/Resources/arrow-right-icon.png</normaloff>:/icons/Resources/arrow-right-icon.png</iconset>
               </property>
               <property name="flat">
                <bool>true</bool>
@@ -367,7 +370,7 @@ background-color: rgb(190, 229, 240);</string>
               </property>
               <property name="icon">
                <iconset resource="resources.qrc">
-                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+                <normaloff>:/icons/Resources/arrow-right-icon.png</normaloff>:/icons/Resources/arrow-right-icon.png</iconset>
               </property>
               <property name="flat">
                <bool>true</bool>
@@ -446,7 +449,7 @@ background-color: rgb(190, 229, 240);</string>
               </property>
               <property name="icon">
                <iconset resource="resources.qrc">
-                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+                <normaloff>:/icons/Resources/arrow-right-icon.png</normaloff>:/icons/Resources/arrow-right-icon.png</iconset>
               </property>
               <property name="flat">
                <bool>true</bool>

@@ -5,6 +5,8 @@
 #include <QRgb>
 #include <QTabBar>
 #include <QToolBar>
+#include <QPixmap>
+#include <QPalette>
 #include "databasehandler.h"
 
 MainWindow::MainWindow(QWidget *parent)

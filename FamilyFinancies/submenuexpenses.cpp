@@ -57,9 +57,36 @@ void SubMenuExpenses::loadMenuItemsFromDB()
 
 void SubMenuExpenses::on_menuButtonShopping_clicked()
 {
-    ui->menuButtonShopping->setIcon(QIcon(ui->pushButtonShoppingReceipt->isHidden() ? ":/images/Resources/navigation-button-down-icon.png"
-                                                                                    : ":/images/Resources/navigation-button-right-icon.png"));
+    ui->menuButtonShopping->setIcon(QIcon(ui->pushButtonShoppingReceipt->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
+                                                                                    : ":/icons/Resources/arrow-right-icon.png"));
     ui->pushButtonShoppingReceipt->setHidden(!ui->pushButtonShoppingReceipt->isHidden());
     ui->pushButtonShoppingItem->setHidden(!ui->pushButtonShoppingItem->isHidden());
+}
+
+
+void SubMenuExpenses::on_menuButtonHouses_clicked()
+{
+    ui->menuButtonHouses->setIcon(QIcon(houseButtons[0]->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
+                                                                    : ":/icons/Resources/arrow-right-icon.png"));
+
+    for (auto button : houseButtons) button->setHidden(!button->isHidden());
+}
+
+
+void SubMenuExpenses::on_menuButtonChildren_clicked()
+{
+    ui->menuButtonChildren->setIcon(QIcon(childButtons[0]->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
+                                                                      : ":/icons/Resources/arrow-right-icon.png"));
+
+    for (auto button : childButtons) button->setHidden(!button->isHidden());
+}
+
+
+void SubMenuExpenses::on_menuButtonCars_clicked()
+{
+    ui->menuButtonCars->setIcon(QIcon(carButtons[0]->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
+                                                                : ":/icons/Resources/arrow-right-icon.png"));
+
+    for (auto button : carButtons) button->setHidden(!button->isHidden());
 }
 

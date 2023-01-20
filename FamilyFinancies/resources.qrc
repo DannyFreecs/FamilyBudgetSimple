@@ -1,6 +1,7 @@
 <RCC>
-    <qresource prefix="/images">
-        <file>Resources/navigation-button-down-icon.png</file>
-        <file>Resources/navigation-button-right-icon.png</file>
+    <qresource prefix="/icons">
+        <file>Resources/MainWindow-icon.png</file>
+        <file>Resources/arrow-down-icon.png</file>
+        <file>Resources/arrow-right-icon.png</file>
     </qresource>
 </RCC>

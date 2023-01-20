@@ -20,6 +20,12 @@ public:
 private slots:
     void on_menuButtonShopping_clicked();
 
+    void on_menuButtonHouses_clicked();
+
+    void on_menuButtonChildren_clicked();
+
+    void on_menuButtonCars_clicked();
+
 private:
     void loadMenuItemsFromDB();
 
