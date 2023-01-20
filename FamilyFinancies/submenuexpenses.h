@@ -17,6 +17,9 @@ public:
     explicit SubMenuExpenses(QWidget *parent = nullptr);
     ~SubMenuExpenses();
 
+private slots:
+    void on_menuButtonShopping_clicked();
+
 private:
     void loadMenuItemsFromDB();
 

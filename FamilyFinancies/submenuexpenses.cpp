@@ -54,3 +54,12 @@ void SubMenuExpenses::loadMenuItemsFromDB()
         childButtons.append(button);
     }
 }
+
+void SubMenuExpenses::on_menuButtonShopping_clicked()
+{
+    ui->menuButtonShopping->setIcon(QIcon(ui->pushButtonShoppingReceipt->isHidden() ? ":/images/Resources/navigation-button-down-icon.png"
+                                                                                    : ":/images/Resources/navigation-button-right-icon.png"));
+    ui->pushButtonShoppingReceipt->setHidden(!ui->pushButtonShoppingReceipt->isHidden());
+    ui->pushButtonShoppingItem->setHidden(!ui->pushButtonShoppingItem->isHidden());
+}
+
