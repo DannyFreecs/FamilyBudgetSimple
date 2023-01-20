@@ -8,7 +8,9 @@ SubMenuExpenses::SubMenuExpenses(QWidget *parent) :
     ui(new Ui::SubMenuExpenses)
 {
     ui->setupUi(this);
-    initMenuItems();
+    ui->pushButtonShoppingReceipt->setHidden(true);
+    ui->pushButtonShoppingItem->setHidden(true);
+    loadMenuItemsFromDB();
 
 }
 
@@ -17,14 +19,15 @@ SubMenuExpenses::~SubMenuExpenses()
     delete ui;
 }
 
-void SubMenuExpenses::initMenuItems()
+void SubMenuExpenses::loadMenuItemsFromDB()
 {
     QVector<QString> vecHouses{DataBaseHandler::getDbManager()->getHouses()};
     for(const auto& text : vecHouses)
     {
         QPushButton *button = new QPushButton(text);
         button->setGeometry(QRect(30, 1, 177, 16));
-        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian;");
+        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian; background-color: rgb(190, 229, 240);");
+        button->setHidden(true);
         ui->verticalLayoutSubMenuHouses->addWidget(button);
         houseButtons.append(button);
     }
@@ -34,7 +37,8 @@ void SubMenuExpenses::initMenuItems()
     {
         QPushButton *button = new QPushButton(text);
         button->setGeometry(QRect(30, 1, 177, 16));
-        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian;");
+        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian; background-color: rgb(190, 229, 240);");
+        button->setHidden(true);
         ui->verticalLayoutSubMenuCars->addWidget(button);
         carButtons.append(button);
     }
@@ -44,7 +48,8 @@ void SubMenuExpenses::initMenuItems()
     {
         QPushButton *button = new QPushButton(text);
         button->setGeometry(QRect(30, 1, 177, 16));
-        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian;");
+        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian; background-color: rgb(190, 229, 240);");
+        button->setHidden(true);
         ui->verticalLayoutSubMenuChildren->addWidget(button);
         childButtons.append(button);
     }

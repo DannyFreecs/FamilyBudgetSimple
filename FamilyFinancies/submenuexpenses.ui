@@ -18,300 +18,521 @@
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <property name="sizeConstraint">
-     <enum>QLayout::SetMinAndMaxSize</enum>
+     <enum>QLayout::SetFixedSize</enum>
     </property>
     <property name="leftMargin">
-     <number>9</number>
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>9</number>
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
     </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,1">
-      <property name="spacing">
-       <number>10</number>
+     <widget class="QFrame" name="frame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="sizeConstraint">
-       <enum>QLayout::SetFixedSize</enum>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(190, 229, 240);
+border: 2px solid black;</string>
       </property>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuShopping" stretch="0,1">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>10</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="menuButtonShopping">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0,0,0">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SetFixedSize</enum>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frameShopping">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 0px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
           </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayoutMenuShopping" stretch="0,1">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SetFixedSize</enum>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignRight">
+             <widget class="QPushButton" name="menuButtonShopping">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px;
+font: 700 16pt &quot;Verdana&quot;;
+background-color: rgb(190, 229, 240);
+text-align: left;
+</string>
+              </property>
+              <property name="text">
+               <string>Vásárlás</string>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayoutSubMenuShopping">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SetFixedSize</enum>
+              </property>
+              <property name="leftMargin">
+               <number>15</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButtonShoppingReceipt">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>10000</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border: 0px;
+font: 12pt &quot;Algerian&quot;;
+text-align: left;
+background-color: rgb(190, 229, 240);</string>
+                </property>
+                <property name="text">
+                 <string>Blokk hozzáadása</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButtonShoppingItem">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100000</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border: 0px;
+font: 12pt &quot;Algerian&quot;;
+text-align: left;
+background-color: rgb(190, 229, 240);</string>
+                </property>
+                <property name="text">
+                 <string>Tétel hozzáadása</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frameHouses">
+         <property name="styleSheet">
+          <string notr="true">border: 0px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border: 0px;
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayoutMenuHouses" stretch="0,1">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SetFixedSize</enum>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignRight">
+             <widget class="QPushButton" name="menuButtonHouses">
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px;
 text-align: left;
 font: 700 16pt &quot;Verdana&quot;;
-
-</string>
-          </property>
-          <property name="text">
-           <string>Vásárlás</string>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayoutSubMenuShopping">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>15</number>
+background-color: rgb(190, 229, 240);</string>
+              </property>
+              <property name="text">
+               <string>Ingatlanok</string>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayoutSubMenuHouses">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>15</number>
+              </property>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frameChildren">
+         <property name="styleSheet">
+          <string notr="true">border: 0px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
           </property>
           <item>
-           <widget class="QPushButton" name="pushButtonShoppingReceipt">
-            <property name="enabled">
-             <bool>true</bool>
+           <layout class="QVBoxLayout" name="verticalLayoutMenuChildren" stretch="0,1">
+            <property name="spacing">
+             <number>0</number>
             </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+            <property name="sizeConstraint">
+             <enum>QLayout::SetFixedSize</enum>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>10000</width>
-              <height>16777215</height>
-             </size>
+            <property name="topMargin">
+             <number>0</number>
             </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
+            <property name="bottomMargin">
+             <number>0</number>
             </property>
+            <item alignment="Qt::AlignRight">
+             <widget class="QPushButton" name="menuButtonChildren">
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px;
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;
+background-color: rgb(190, 229, 240);</string>
+              </property>
+              <property name="text">
+               <string>Gyerekek</string>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayoutSubMenuChildren">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>15</number>
+              </property>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frameCars">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 0px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayoutMenuCars" stretch="0,1">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SetFixedSize</enum>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignRight">
+             <widget class="QPushButton" name="menuButtonCars">
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px;
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;
+background-color: rgb(190, 229, 240);</string>
+              </property>
+              <property name="text">
+               <string>Autók</string>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/images/Resources/navigation-button-right-icon.png</normaloff>:/images/Resources/navigation-button-right-icon.png</iconset>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayoutSubMenuCars">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>15</number>
+              </property>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frameOthers">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 0px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0,0,1">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="sizeConstraint">
+           <enum>QLayout::SetFixedSize</enum>
+          </property>
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="menuButtonHealthCare">
             <property name="styleSheet">
              <string notr="true">border: 0px;
-font: 12pt &quot;Algerian&quot;;
-text-align: left;</string>
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;
+background-color: rgb(190, 229, 240);</string>
             </property>
             <property name="text">
-             <string>Blokk hozzáadása</string>
+             <string>Orvos</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButtonShoppingItem">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100000</width>
-              <height>16777215</height>
-             </size>
-            </property>
+           <widget class="QPushButton" name="menuButtonCredits">
             <property name="styleSheet">
              <string notr="true">border: 0px;
-font: 12pt &quot;Algerian&quot;;
-text-align: left;</string>
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;
+background-color: rgb(190, 229, 240);</string>
             </property>
             <property name="text">
-             <string>Tétel hozzáadása</string>
+             <string>Hitelek</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="menuButtonOther">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(190, 229, 240);
+border: 0px;
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
+            </property>
+            <property name="text">
+             <string>Egyéb</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuHouses" stretch="0,1">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>10</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="menuButtonHouses">
-          <property name="styleSheet">
-           <string notr="true">border: 0px;
-text-align: left;
-font: 700 16pt &quot;Verdana&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Ingatlanok</string>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayoutSubMenuHouses">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>15</number>
-          </property>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuChildren" stretch="0,1">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>10</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="menuButtonChildren">
-          <property name="styleSheet">
-           <string notr="true">border: 0px;
-text-align: left;
-font: 700 16pt &quot;Verdana&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Gyerekek</string>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayoutSubMenuChildren">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>15</number>
-          </property>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuCars" stretch="0,1">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>10</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="menuButtonCars">
-          <property name="styleSheet">
-           <string notr="true">border: 0px;
-text-align: left;
-font: 700 16pt &quot;Verdana&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Autók</string>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayoutSubMenuCars">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>15</number>
-          </property>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="menuButtonCredits">
-        <property name="styleSheet">
-         <string notr="true">border: 0px;
-text-align: left;
-font: 700 16pt &quot;Verdana&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Hitelek</string>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="menuButtonHealthCare">
-        <property name="styleSheet">
-         <string notr="true">border: 0px;
-text-align: left;
-font: 700 16pt &quot;Verdana&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Orvos</string>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="menuButtonOther">
-        <property name="styleSheet">
-         <string notr="true">border: 0px;
-text-align: left;
-font: 700 16pt &quot;Verdana&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Egyéb</string>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

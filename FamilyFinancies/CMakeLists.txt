@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
         databasemanager.cpp
         databasehandler.h
         databasehandler.cpp
+        resources.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

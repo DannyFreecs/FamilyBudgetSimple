@@ -18,7 +18,7 @@ public:
     ~SubMenuExpenses();
 
 private:
-    void initMenuItems();
+    void loadMenuItemsFromDB();
 
 private:
     Ui::SubMenuExpenses *ui;
