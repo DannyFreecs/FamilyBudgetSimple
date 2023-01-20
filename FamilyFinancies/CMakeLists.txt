@@ -20,6 +20,8 @@ set(PROJECT_SOURCES
         submenuexpenses.h
         submenuexpenses.cpp
         submenuexpenses.ui
+        databasemanager.h
+        databasemanager.cpp
         databasehandler.h
         databasehandler.cpp
 )

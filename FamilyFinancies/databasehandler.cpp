@@ -1,6 +1,4 @@
 #include "databasehandler.h"
 
-DataBaseHandler::DataBaseHandler()
-{
+std::unique_ptr<DataBaseManager> DataBaseHandler::_dbManager = nullptr;
 
-}

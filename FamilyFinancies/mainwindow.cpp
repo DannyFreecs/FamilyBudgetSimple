@@ -12,13 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    subMenuExpenses = std::make_unique<SubMenuExpenses>();
+    DataBaseHandler::initDbManager("..//Database//FamilyFinancies.db");
 
-    ui->mdiAreaSubMenu->addSubWindow(subMenuExpenses.get(), Qt::FramelessWindowHint);
-    subMenuExpenses->showMaximized();
-
-    //DataBaseHandler handler;
-    //handler.connect();
+    _subMenuExpenses = std::make_unique<SubMenuExpenses>();
+    ui->mdiAreaSubMenu->addSubWindow(_subMenuExpenses.get(), Qt::FramelessWindowHint);
+    _subMenuExpenses->showMaximized();
 }
 
 MainWindow::~MainWindow()

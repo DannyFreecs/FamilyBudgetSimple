@@ -2,6 +2,8 @@
 #define SUBMENUEXPENSES_H
 
 #include <QMainWindow>
+#include <memory>
+#include <QPushButton>
 
 namespace Ui {
 class SubMenuExpenses;
@@ -16,7 +18,13 @@ public:
     ~SubMenuExpenses();
 
 private:
+    void initMenuItems();
+
+private:
     Ui::SubMenuExpenses *ui;
+    QVector<QPushButton*> houseButtons;
+    QVector<QPushButton*> carButtons;
+    QVector<QPushButton*> childButtons;
 };
 
 #endif // SUBMENUEXPENSES_H

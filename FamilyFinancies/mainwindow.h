@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <memory>
+//#include "databasehandler.h"
 #include "submenuexpenses.h"
 
 QT_BEGIN_NAMESPACE
@@ -19,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    std::unique_ptr<SubMenuExpenses> subMenuExpenses;
+    //std::shared_ptr<DataBaseHandler> _dbManager;
+    std::unique_ptr<SubMenuExpenses> _subMenuExpenses;
 };
 #endif // MAINWINDOW_H

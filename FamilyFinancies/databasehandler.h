@@ -1,35 +1,20 @@
 #ifndef DATABASEHANDLER_H
 #define DATABASEHANDLER_H
 
-#include <QSqlDatabase>
-#include <QSqlQuery>
-
+#include "databasemanager.h"
 class DataBaseHandler
 {
 public:
-    DataBaseHandler();
-
-    void connect()
-    {
-        db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("..//Database//FamilyFinancies.db");
-
-        if(db.open())
-        {
-            QSqlQuery q("SELECT * FROM Categories");
-            while (q.next())
-            {
-                QString asd = q.value("SubCategory").toString();
-            }
-        }
-        else
-        {
-            int x = 88;
-        }
+    static std::unique_ptr<DataBaseManager> _dbManager;
+public:
+    static void initDbManager(QString &&dbPath) {
+        _dbManager = std::make_unique<DataBaseManager>(std::move(dbPath));
+        int z = 0;
     }
-
-private:
-    QSqlDatabase db;
+    static std::unique_ptr<DataBaseManager>& getDbManager() {
+        return _dbManager;
+    }
 };
+
 
 #endif // DATABASEHANDLER_H

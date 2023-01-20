@@ -7,14 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>230</width>
-    <height>488</height>
+    <height>490</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(221, 234, 240);
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -31,9 +32,18 @@
      <number>9</number>
     </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,1">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuShopping">
+       <layout class="QVBoxLayout" name="verticalLayoutMenuShopping" stretch="0,1">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
         <property name="topMargin">
          <number>0</number>
         </property>
@@ -41,25 +51,37 @@
          <number>10</number>
         </property>
         <item>
-         <widget class="QCommandLinkButton" name="menuButtonShopping">
-          <property name="font">
-           <font>
-            <pointsize>16</pointsize>
-            <bold>true</bold>
-           </font>
+         <widget class="QPushButton" name="menuButtonShopping">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
           </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
           </property>
           <property name="styleSheet">
            <string notr="true">border: 0px;
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;
+
 </string>
           </property>
           <property name="text">
            <string>Vásárlás</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -69,18 +91,31 @@
            <number>6</number>
           </property>
           <property name="leftMargin">
-           <number>30</number>
+           <number>15</number>
           </property>
           <item>
            <widget class="QPushButton" name="pushButtonShoppingReceipt">
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>10000</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
             </property>
             <property name="styleSheet">
              <string notr="true">border: 0px;
+font: 12pt &quot;Algerian&quot;;
 text-align: left;</string>
             </property>
             <property name="text">
@@ -93,8 +128,15 @@ text-align: left;</string>
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>100000</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">border: 0px;
+font: 12pt &quot;Algerian&quot;;
 text-align: left;</string>
             </property>
             <property name="text">
@@ -107,7 +149,10 @@ text-align: left;</string>
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuHouses">
+       <layout class="QVBoxLayout" name="verticalLayoutMenuHouses" stretch="0,1">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
         <property name="topMargin">
          <number>0</number>
         </property>
@@ -115,25 +160,17 @@ text-align: left;</string>
          <number>10</number>
         </property>
         <item>
-         <widget class="QCommandLinkButton" name="menuButtonHouses">
-          <property name="font">
-           <font>
-            <pointsize>16</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
+         <widget class="QPushButton" name="menuButtonHouses">
           <property name="styleSheet">
            <string notr="true">border: 0px;
-</string>
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
           </property>
           <property name="text">
            <string>Ingatlanok</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -143,14 +180,14 @@ text-align: left;</string>
            <number>6</number>
           </property>
           <property name="leftMargin">
-           <number>30</number>
+           <number>15</number>
           </property>
          </layout>
         </item>
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuChildren" stretch="0,0">
+       <layout class="QVBoxLayout" name="verticalLayoutMenuChildren" stretch="0,1">
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
@@ -161,67 +198,34 @@ text-align: left;</string>
          <number>10</number>
         </property>
         <item>
-         <widget class="QCommandLinkButton" name="menuButtonChildren">
-          <property name="font">
-           <font>
-            <pointsize>16</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
+         <widget class="QPushButton" name="menuButtonChildren">
           <property name="styleSheet">
            <string notr="true">border: 0px;
-</string>
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
           </property>
           <property name="text">
            <string>Gyerekek</string>
           </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayoutSubMenuCars_2">
+         <layout class="QVBoxLayout" name="verticalLayoutSubMenuChildren">
           <property name="spacing">
            <number>6</number>
           </property>
           <property name="leftMargin">
-           <number>30</number>
+           <number>15</number>
           </property>
-          <item>
-           <widget class="QPushButton" name="pushButtonChildrenLearning">
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border: 0px;
-text-align: left;</string>
-            </property>
-            <property name="text">
-             <string>Tanulmányok</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButtonChildrenOther">
-            <property name="styleSheet">
-             <string notr="true">border: 0px;
-text-align: left;</string>
-            </property>
-            <property name="text">
-             <string>Egyéb</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayoutMenuCars" stretch="0,0">
+       <layout class="QVBoxLayout" name="verticalLayoutMenuCars" stretch="0,1">
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
@@ -232,25 +236,17 @@ text-align: left;</string>
          <number>10</number>
         </property>
         <item>
-         <widget class="QCommandLinkButton" name="menuButtonCars">
-          <property name="font">
-           <font>
-            <pointsize>16</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
+         <widget class="QPushButton" name="menuButtonCars">
           <property name="styleSheet">
            <string notr="true">border: 0px;
-</string>
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
           </property>
           <property name="text">
            <string>Autók</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -260,55 +256,54 @@ text-align: left;</string>
            <number>6</number>
           </property>
           <property name="leftMargin">
-           <number>30</number>
+           <number>15</number>
           </property>
          </layout>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QCommandLinkButton" name="menuButtonCredits">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
+       <widget class="QPushButton" name="menuButtonCredits">
         <property name="styleSheet">
          <string notr="true">border: 0px;
-</string>
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
         </property>
         <property name="text">
          <string>Hitelek</string>
         </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QCommandLinkButton" name="menuButtonOthers">
-        <property name="font">
-         <font>
-          <pointsize>16</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
+       <widget class="QPushButton" name="menuButtonHealthCare">
         <property name="styleSheet">
          <string notr="true">border: 0px;
-</string>
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Orvos</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="menuButtonOther">
+        <property name="styleSheet">
+         <string notr="true">border: 0px;
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
         </property>
         <property name="text">
          <string>Egyéb</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
