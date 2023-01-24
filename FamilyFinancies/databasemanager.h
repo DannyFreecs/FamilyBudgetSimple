@@ -14,6 +14,7 @@ public:
     QVector<QString> getHouses();
     QVector<QString> getCars();
     QVector<QString> getChildren();
+    QStringList getShoppingCategories();
 
 private:
     QSqlDatabase _db;

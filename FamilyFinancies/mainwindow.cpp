@@ -7,6 +7,8 @@
 #include <QToolBar>
 #include <QPixmap>
 #include <QPalette>
+#include <QAction>
+#include <QWidgetAction>
 #include "databasehandler.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -14,11 +16,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // Initialize the static database handler!!!
     DataBaseHandler::initDbManager("..//Database//FamilyFinancies.db");
 
     _subMenuExpenses = std::make_unique<SubMenuExpenses>();
     ui->mdiAreaSubMenu->addSubWindow(_subMenuExpenses.get(), Qt::FramelessWindowHint);
     _subMenuExpenses->showMaximized();
+
+    ActivityReceipt *ar = new ActivityReceipt();
+    ui->mdiAreaActivity->addSubWindow(ar, Qt::FramelessWindowHint);
+    ar->showMaximized();
 }
 
 MainWindow::~MainWindow()

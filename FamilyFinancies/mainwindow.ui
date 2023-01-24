@@ -35,7 +35,16 @@
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetDefaultConstraint</enum>
+    </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
       <property name="spacing">
@@ -116,38 +125,50 @@ border: 2px solid black;</string>
      </layout>
     </item>
     <item>
-     <widget class="QSplitter" name="splitterMDIs">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     <widget class="QMdiArea" name="mdiAreaSubMenu">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <widget class="QMdiArea" name="mdiAreaSubMenu">
-       <property name="maximumSize">
-        <size>
-         <width>230</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="viewMode">
-        <enum>QMdiArea::SubWindowView</enum>
-       </property>
-       <property name="documentMode">
-        <bool>false</bool>
-       </property>
-       <property name="tabsClosable">
-        <bool>false</bool>
-       </property>
-       <property name="tabsMovable">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QMdiArea" name="mdiAreaActivity">
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-      </widget>
+      <property name="minimumSize">
+       <size>
+        <width>230</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>230</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <property name="viewMode">
+       <enum>QMdiArea::SubWindowView</enum>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="tabsMovable">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QMdiArea" name="mdiAreaActivity">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
      </widget>
     </item>
    </layout>
@@ -161,8 +182,89 @@ border: 2px solid black;</string>
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Fájl</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuIncomes">
+    <property name="title">
+     <string>Bevételek</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuExpenses">
+    <property name="geometry">
+     <rect>
+      <x>373</x>
+      <y>102</y>
+      <width>233</width>
+      <height>262</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Kiadások</string>
+    </property>
+    <addaction name="actionAddBlock"/>
+    <addaction name="actionAddItem"/>
+    <addaction name="separator"/>
+    <addaction name="actionManageHouse"/>
+    <addaction name="separator"/>
+    <addaction name="actionManageChild"/>
+    <addaction name="separator"/>
+    <addaction name="actionManageCar"/>
+    <addaction name="separator"/>
+    <addaction name="actionHealthcare"/>
+    <addaction name="actionCredits"/>
+    <addaction name="actionOthers"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuExpenses"/>
+   <addaction name="menuIncomes"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAddBlock">
+   <property name="text">
+    <string>Blokk hozzáadása</string>
+   </property>
+  </action>
+  <action name="actionAddItem">
+   <property name="text">
+    <string>Tétel hozzáadása</string>
+   </property>
+  </action>
+  <action name="actionManageHouse">
+   <property name="text">
+    <string>Ingatlannal kapcsolatos kiadások</string>
+   </property>
+  </action>
+  <action name="actionManageChild">
+   <property name="text">
+    <string>Gyermek kiadásai</string>
+   </property>
+   <property name="iconText">
+    <string>Gyermekkel kapcsolatos kiadások</string>
+   </property>
+  </action>
+  <action name="actionManageCar">
+   <property name="text">
+    <string>Autóval kapcsolatos kiadások</string>
+   </property>
+  </action>
+  <action name="actionHealthcare">
+   <property name="text">
+    <string>Orvos</string>
+   </property>
+  </action>
+  <action name="actionCredits">
+   <property name="text">
+    <string>Hitelek</string>
+   </property>
+  </action>
+  <action name="actionOthers">
+   <property name="text">
+    <string>Egyéb</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resources.qrc"/>

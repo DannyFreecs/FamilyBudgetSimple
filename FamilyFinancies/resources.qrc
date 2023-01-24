@@ -3,5 +3,7 @@
         <file>Resources/MainWindow-icon.png</file>
         <file>Resources/arrow-down-icon.png</file>
         <file>Resources/arrow-right-icon.png</file>
+        <file>Resources/hand-with-money.png</file>
+        <file>Resources/budget.png</file>
     </qresource>
 </RCC>

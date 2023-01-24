@@ -7,11 +7,12 @@ class DataBaseHandler
 public:
     static std::unique_ptr<DataBaseManager> _dbManager;
 public:
-    static void initDbManager(QString &&dbPath) {
+    static void initDbManager(QString &&dbPath)
+    {
         _dbManager = std::make_unique<DataBaseManager>(std::move(dbPath));
-        int z = 0;
     }
-    static std::unique_ptr<DataBaseManager>& getDbManager() {
+    static std::unique_ptr<DataBaseManager>& getDbManager()
+    {
         return _dbManager;
     }
 };

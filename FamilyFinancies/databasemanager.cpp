@@ -60,3 +60,18 @@ QVector<QString> DataBaseManager::getChildren()
 
     return houses;
 }
+
+QStringList DataBaseManager::getShoppingCategories()
+{
+    QStringList categories;
+
+    QSqlQuery query;
+    query.exec("SELECT SubCategory FROM Categories WHERE Category = 'Vásárlás'");
+
+    while (query.next())
+    {
+        categories.append(query.value(0).toString());
+    }
+
+    return categories;
+}

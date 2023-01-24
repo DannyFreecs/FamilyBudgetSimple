@@ -24,6 +24,9 @@ set(PROJECT_SOURCES
         databasemanager.cpp
         databasehandler.h
         databasehandler.cpp
+        activityreceipt.h
+        activityreceipt.cpp
+        activityreceipt.ui
         resources.qrc
 )
 
