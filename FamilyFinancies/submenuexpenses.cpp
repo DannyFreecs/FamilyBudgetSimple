@@ -90,3 +90,9 @@ void SubMenuExpenses::on_menuButtonCars_clicked()
     for (auto button : carButtons) button->setHidden(!button->isHidden());
 }
 
+
+void SubMenuExpenses::on_pushButtonShoppingItem_clicked()
+{
+    emit createActivityShoppingItem();
+}
+

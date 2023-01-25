@@ -75,3 +75,29 @@ QStringList DataBaseManager::getShoppingCategories()
 
     return categories;
 }
+
+void DataBaseManager::insertShoppingExpanse(QVector<QVector<QString> > &&shoppingData)
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO Expanses(...) VALUES(?, ?, ?, ?)");
+    QVariantList amounts;
+    QVariantList categories;
+    QVariantList dates;
+    QVariantList comments;
+
+    for(const auto& row : shoppingData)
+    {
+        amounts    << row[0];
+        categories << row[1];
+        dates      << row[2];
+        comments   << row[3];
+    }
+
+    query.addBindValue(amounts);
+    query.addBindValue(categories);
+    query.addBindValue(dates);
+    query.addBindValue(comments);
+
+    query.execBatch();
+}

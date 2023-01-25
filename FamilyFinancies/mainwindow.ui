@@ -182,12 +182,23 @@ border: 2px solid black;</string>
      <height>22</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(190, 229, 240);</string>
+   </property>
    <widget class="QMenu" name="menuFile">
+    <property name="styleSheet">
+     <string notr="true">selection-background-color: rgb(221, 234, 240);
+selection-color: rgb(0, 0, 0);</string>
+    </property>
     <property name="title">
      <string>Fájl</string>
     </property>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuIncomes">
+    <property name="styleSheet">
+     <string notr="true">selection-background-color: rgb(221, 234, 240); selection-color: rgb(0, 0, 0);</string>
+    </property>
     <property name="title">
      <string>Bevételek</string>
     </property>
@@ -200,6 +211,10 @@ border: 2px solid black;</string>
       <width>233</width>
       <height>262</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">selection-background-color: rgb(221, 234, 240);
+selection-color: rgb(0, 0, 0);</string>
     </property>
     <property name="title">
      <string>Kiadások</string>
@@ -263,6 +278,11 @@ border: 2px solid black;</string>
   <action name="actionOthers">
    <property name="text">
     <string>Egyéb</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Kilépés</string>
    </property>
   </action>
  </widget>

@@ -16,6 +16,8 @@ public:
     QVector<QString> getChildren();
     QStringList getShoppingCategories();
 
+    void insertShoppingExpanse(QVector<QVector<QString>> &&shoppingData);
+
 private:
     QSqlDatabase _db;
     QString _dbPath;

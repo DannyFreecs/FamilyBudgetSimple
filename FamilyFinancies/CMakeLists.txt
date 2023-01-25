@@ -27,6 +27,9 @@ set(PROJECT_SOURCES
         activityreceipt.h
         activityreceipt.cpp
         activityreceipt.ui
+        activityshoppingitem.h
+        activityshoppingitem.cpp
+        activityshoppingitem.ui
         resources.qrc
 )
 

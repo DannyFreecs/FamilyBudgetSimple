@@ -9,6 +9,7 @@
 #include <memory>
 #include "submenuexpenses.h"
 #include "activityreceipt.h"
+#include "activityshoppingitem.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,8 +23,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_createActivityShoppingItem();
+
 private:
     Ui::MainWindow *ui;
     std::unique_ptr<SubMenuExpenses> _subMenuExpenses;
+    ActivityShoppingItem *activityShoppingItem;
 };
 #endif // MAINWINDOW_H

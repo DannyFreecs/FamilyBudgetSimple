@@ -17,6 +17,9 @@ public:
     explicit SubMenuExpenses(QWidget *parent = nullptr);
     ~SubMenuExpenses();
 
+signals:
+    void createActivityShoppingItem();
+
 private slots:
     void on_menuButtonShopping_clicked();
 
@@ -25,6 +28,8 @@ private slots:
     void on_menuButtonChildren_clicked();
 
     void on_menuButtonCars_clicked();
+
+    void on_pushButtonShoppingItem_clicked();
 
 private:
     void loadMenuItemsFromDB();
