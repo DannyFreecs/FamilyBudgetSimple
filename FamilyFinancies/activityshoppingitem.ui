@@ -30,7 +30,10 @@
       <item>
        <widget class="QLineEdit" name="lineEditCost">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(190, 229, 240);</string>
+         <string notr="true">background-color: rgb(173, 216, 230);</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -50,7 +53,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(190, 229, 240);</string>
+         <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
        </widget>
       </item>
@@ -64,7 +67,7 @@
       <item>
        <widget class="QDateEdit" name="dateEdit">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(190, 229, 240);</string>
+         <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
         <property name="displayFormat">
          <string>yyyy/MM/dd</string>
@@ -112,7 +115,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(190, 229, 240);</string>
+       <string notr="true">background-color: rgb(173, 216, 230);</string>
       </property>
       <property name="text">
        <string>Mentés</string>

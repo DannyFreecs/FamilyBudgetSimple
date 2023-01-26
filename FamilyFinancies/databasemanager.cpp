@@ -14,7 +14,7 @@ void DataBaseManager::connect()
 
     if(!_db.open())
     {
-        QMessageBox::critical(0, "Error", "Failed to connect to the database.\nError: " + _db.lastError().text() + "\nPlease contact the operator!");
+        QMessageBox::critical(nullptr, "Error", "Failed to connect to the database.\nError: " + _db.lastError().text() + "\nPlease contact the operator!");
         return;
     }
 }
@@ -61,16 +61,16 @@ QVector<QString> DataBaseManager::getChildren()
     return houses;
 }
 
-QStringList DataBaseManager::getShoppingCategories()
+QMap<QString, QString> DataBaseManager::getShoppingCategories()
 {
-    QStringList categories;
+    QMap<QString, QString> categories;
 
     QSqlQuery query;
-    query.exec("SELECT SubCategory FROM Categories WHERE Category = 'Vásárlás'");
+    query.exec("SELECT id, SubCategory FROM Categories WHERE Category = 'Vásárlás'");
 
     while (query.next())
     {
-        categories.append(query.value(0).toString());
+        categories.insert(query.value(0).toString(), query.value(1).toString());
     }
 
     return categories;
@@ -80,24 +80,27 @@ void DataBaseManager::insertShoppingExpanse(QVector<QVector<QString> > &&shoppin
 {
     QSqlQuery query;
 
-    query.prepare("INSERT INTO Expanses(...) VALUES(?, ?, ?, ?)");
-    QVariantList amounts;
-    QVariantList categories;
+    query.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(?, ?, ?, ?)");
+    QVariantList costs;
+    QVariantList types;
     QVariantList dates;
     QVariantList comments;
 
     for(const auto& row : shoppingData)
     {
-        amounts    << row[0];
-        categories << row[1];
+        costs      << row[0].toInt();
+        types      << row[1].toInt();
         dates      << row[2];
         comments   << row[3];
     }
 
-    query.addBindValue(amounts);
-    query.addBindValue(categories);
-    query.addBindValue(dates);
+    query.addBindValue(costs);
     query.addBindValue(comments);
+    query.addBindValue(dates);
+    query.addBindValue(types);
 
-    query.execBatch();
+    if (query.execBatch())
+    {
+        int z = 7;
+    }
 }

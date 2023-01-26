@@ -54,7 +54,10 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(190, 229, 240);</string>
+         <string notr="true">background-color: rgb(173, 216, 230);</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -99,7 +102,7 @@
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(190, 229, 240);</string>
+         <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
         <property name="wrapping">
          <bool>false</bool>
@@ -160,8 +163,14 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(190, 229, 240);</string>
+            <string notr="true">background-color: rgb(173, 216, 230);</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -178,7 +187,7 @@
          <item>
           <widget class="QComboBox" name="comboBoxCategories">
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(190, 229, 240);</string>
+            <string notr="true">background-color: rgb(173, 216, 230);</string>
            </property>
           </widget>
          </item>
@@ -195,14 +204,14 @@
          <item>
           <widget class="QLineEdit" name="lineEditComment">
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(190, 229, 240);</string>
+            <string notr="true">background-color: rgb(173, 216, 230);</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButtonAddItem">
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(190, 229, 240);
+            <string notr="true">background-color: rgb(173, 216, 230);
 font: 700 9pt &quot;Segoe UI&quot;;</string>
            </property>
            <property name="text">
@@ -242,7 +251,7 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
            <item>
             <widget class="QPushButton" name="pushButtonRemoveItem">
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(190, 229, 240);
+              <string notr="true">background-color: rgb(173, 216, 230);
 font: 700 9pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">
@@ -253,7 +262,7 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
            <item>
             <widget class="QPushButton" name="pushButtonRemoveAll">
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(190, 229, 240);
+              <string notr="true">background-color: rgb(173, 216, 230);
 font: 700 9pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">
@@ -264,7 +273,7 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
            <item>
             <widget class="QPushButton" name="pushButtonSave">
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(190, 229, 240);
+              <string notr="true">background-color: rgb(173, 216, 230);
 font: 700 9pt &quot;Segoe UI&quot;;</string>
              </property>
              <property name="text">

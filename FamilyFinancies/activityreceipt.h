@@ -17,6 +17,10 @@ public:
     explicit ActivityReceipt(QWidget *parent = nullptr);
     ~ActivityReceipt();
 
+private:
+    void initTableView();
+    bool validateCost();
+
 private slots:
     void on_pushButtonAddItem_clicked();
 
@@ -28,7 +32,8 @@ private slots:
 
 private:
     Ui::ActivityReceipt *ui;
-    std::unique_ptr<QStandardItemModel> receiptModel;
+    std::unique_ptr<QStandardItemModel> _receiptModel;
+    QMap<QString, QString> _categories;
 };
 
 #endif // ACTIVITYRECEIPT_H

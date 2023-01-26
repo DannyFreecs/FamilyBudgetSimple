@@ -23,12 +23,24 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private:
+    void setMenuButtonsToDefaultStyle();
+    void setMenuButtonsSelectedStyle(QPushButton *button);
+
 private slots:
+    void on_createActivityReceipt();
     void on_createActivityShoppingItem();
+
+    void on_menuButtonExpenses_clicked();
+
+    void on_actionAddBlock_triggered();
+
+    void on_actionAddItem_triggered();
 
 private:
     Ui::MainWindow *ui;
     std::unique_ptr<SubMenuExpenses> _subMenuExpenses;
-    ActivityShoppingItem *activityShoppingItem;
+    std::unique_ptr<ActivityReceipt> _activityReceipt;
+    std::unique_ptr<ActivityShoppingItem> _activityShoppingItem;
 };
 #endif // MAINWINDOW_H

@@ -26,8 +26,9 @@ void SubMenuExpenses::loadMenuItemsFromDB()
     {
         QPushButton *button = new QPushButton(text);
         button->setGeometry(QRect(30, 1, 177, 16));
-        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian; background-color: rgb(190, 229, 240);");
+        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian;");
         button->setHidden(true);
+        connect(button, &QPushButton::clicked, this, &SubMenuExpenses::onSubMenuHouseButtonClicked);
         ui->verticalLayoutSubMenuHouses->addWidget(button);
         houseButtons.append(button);
     }
@@ -37,8 +38,9 @@ void SubMenuExpenses::loadMenuItemsFromDB()
     {
         QPushButton *button = new QPushButton(text);
         button->setGeometry(QRect(30, 1, 177, 16));
-        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian; background-color: rgb(190, 229, 240);");
+        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian;");
         button->setHidden(true);
+        connect(button, &QPushButton::clicked, this, &SubMenuExpenses::onSubMenuCarButtonClicked);
         ui->verticalLayoutSubMenuCars->addWidget(button);
         carButtons.append(button);
     }
@@ -48,15 +50,50 @@ void SubMenuExpenses::loadMenuItemsFromDB()
     {
         QPushButton *button = new QPushButton(text);
         button->setGeometry(QRect(30, 1, 177, 16));
-        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian; background-color: rgb(190, 229, 240);");
+        button->setStyleSheet("border: 0px; text-align: left; font: 12pt Algerian;");
         button->setHidden(true);
+        connect(button, &QPushButton::clicked, this, &SubMenuExpenses::onSubMenuChildButtonClicked);
         ui->verticalLayoutSubMenuChildren->addWidget(button);
         childButtons.append(button);
     }
 }
 
+void SubMenuExpenses::setFramesToDefaultStyle()
+{
+    QString defaultStyle("background-color: rgb(173, 216, 230); border: 0px;");
+    ui->frameCars->setStyleSheet(defaultStyle);
+    ui->frameChildren->setStyleSheet(defaultStyle);
+    ui->frameHouses->setStyleSheet(defaultStyle);
+    ui->frameOthers->setStyleSheet(defaultStyle);
+    ui->frameShopping->setStyleSheet(defaultStyle);
+    ui->frameHealthCare->setStyleSheet(defaultStyle);
+    ui->frameCredits->setStyleSheet(defaultStyle);
+}
+
+void SubMenuExpenses::setFrameToSelectedStyle(QFrame *frame)
+{
+    frame->setStyleSheet("background-color: #67B7D1; border: 0px;");
+}
+
+void SubMenuExpenses::setSubMenuButtonsToDefaultStyle()
+{
+    ui->pushButtonShoppingItem->setStyleSheet(subButtonDefaultStyle);
+    ui->pushButtonShoppingReceipt->setStyleSheet(subButtonDefaultStyle);
+
+    for(auto& button : houseButtons) button->setStyleSheet(subButtonDefaultStyle);
+    for(auto& button : childButtons) button->setStyleSheet(subButtonDefaultStyle);
+    for(auto& button : carButtons)   button->setStyleSheet(subButtonDefaultStyle);
+}
+
+void SubMenuExpenses::setSubMenuButtonToSelectedStyle(QPushButton *button)
+{
+    button->setStyleSheet(subButtonSelectedStyle);
+}
+
 void SubMenuExpenses::on_menuButtonShopping_clicked()
 {
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameShopping);
     ui->menuButtonShopping->setIcon(QIcon(ui->pushButtonShoppingReceipt->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
                                                                                     : ":/icons/Resources/arrow-right-icon.png"));
     ui->pushButtonShoppingReceipt->setHidden(!ui->pushButtonShoppingReceipt->isHidden());
@@ -66,6 +103,8 @@ void SubMenuExpenses::on_menuButtonShopping_clicked()
 
 void SubMenuExpenses::on_menuButtonHouses_clicked()
 {
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameHouses);
     ui->menuButtonHouses->setIcon(QIcon(houseButtons[0]->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
                                                                     : ":/icons/Resources/arrow-right-icon.png"));
 
@@ -75,6 +114,8 @@ void SubMenuExpenses::on_menuButtonHouses_clicked()
 
 void SubMenuExpenses::on_menuButtonChildren_clicked()
 {
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameChildren);
     ui->menuButtonChildren->setIcon(QIcon(childButtons[0]->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
                                                                       : ":/icons/Resources/arrow-right-icon.png"));
 
@@ -84,15 +125,81 @@ void SubMenuExpenses::on_menuButtonChildren_clicked()
 
 void SubMenuExpenses::on_menuButtonCars_clicked()
 {
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameCars);
     ui->menuButtonCars->setIcon(QIcon(carButtons[0]->isHidden() ? ":/icons/Resources/arrow-down-icon.png"
                                                                 : ":/icons/Resources/arrow-right-icon.png"));
 
     for (auto button : carButtons) button->setHidden(!button->isHidden());
 }
 
+void SubMenuExpenses::on_pushButtonShoppingReceipt_clicked()
+{
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameShopping);
+    setSubMenuButtonsToDefaultStyle();
+    setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingReceipt);
+    emit createActivityReceipt();
+}
+
+void SubMenuExpenses::onSubMenuHouseButtonClicked()
+{
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameHouses);
+    setSubMenuButtonsToDefaultStyle();
+    setSubMenuButtonToSelectedStyle(qobject_cast<QPushButton*>(QObject::sender()));
+}
+
+void SubMenuExpenses::onSubMenuChildButtonClicked()
+{
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameChildren);
+    setSubMenuButtonsToDefaultStyle();
+    setSubMenuButtonToSelectedStyle(qobject_cast<QPushButton*>(QObject::sender()));
+}
+
+void SubMenuExpenses::onSubMenuCarButtonClicked()
+{
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameCars);
+    setSubMenuButtonsToDefaultStyle();
+    setSubMenuButtonToSelectedStyle(qobject_cast<QPushButton*>(QObject::sender()));
+}
 
 void SubMenuExpenses::on_pushButtonShoppingItem_clicked()
 {
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameShopping);
+    setSubMenuButtonsToDefaultStyle();
+    setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingItem);
     emit createActivityShoppingItem();
+}
+
+
+
+void SubMenuExpenses::on_menuButtonCredits_clicked()
+{
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameCredits);
+    setSubMenuButtonsToDefaultStyle();
+    //setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingReceipt);
+}
+
+
+void SubMenuExpenses::on_menuButtonHealthCare_clicked()
+{
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameHealthCare);
+    setSubMenuButtonsToDefaultStyle();
+    //setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingReceipt);
+}
+
+
+void SubMenuExpenses::on_menuButtonOther_clicked()
+{
+    setFramesToDefaultStyle();
+    setFrameToSelectedStyle(ui->frameOthers);
+    setSubMenuButtonsToDefaultStyle();
+    //setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingReceipt);
 }
 

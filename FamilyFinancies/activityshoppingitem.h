@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::ActivityShoppingItem *ui;
+    QMap<QString, QString> _categories;
 };
 
 #endif // ACTIVITYSHOPPINGITEM_H
