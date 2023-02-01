@@ -46,18 +46,35 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEditCostAll">
-        <property name="maximumSize">
+       <widget class="CurrencySpinBox" name="spinBoxCostAll">
+        <property name="minimumSize">
          <size>
-          <width>150</width>
-          <height>16777215</height>
+          <width>100</width>
+          <height>0</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="specialValueText">
+         <string/>
+        </property>
+        <property name="suffix">
+         <string/>
+        </property>
+        <property name="maximum">
+         <number>999999999</number>
         </property>
        </widget>
       </item>
@@ -97,6 +114,11 @@
           <width>90</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -156,21 +178,32 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEditCostItem">
-           <property name="maximumSize">
+          <widget class="CurrencySpinBox" name="spinBoxCosItem">
+           <property name="minimumSize">
             <size>
-             <width>65</width>
-             <height>16777215</height>
+             <width>100</width>
+             <height>0</height>
             </size>
            </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
+           <property name="font">
+            <font>
+             <bold>true</bold>
+            </font>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(173, 216, 230);</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::NoButtons</enum>
+           </property>
+           <property name="specialValueText">
+            <string/>
+           </property>
+           <property name="maximum">
+            <number>999999999</number>
            </property>
           </widget>
          </item>
@@ -186,6 +219,11 @@
          </item>
          <item>
           <widget class="QComboBox" name="comboBoxCategories">
+           <property name="font">
+            <font>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(173, 216, 230);</string>
            </property>
@@ -203,6 +241,11 @@
          </item>
          <item>
           <widget class="QLineEdit" name="lineEditComment">
+           <property name="font">
+            <font>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(173, 216, 230);</string>
            </property>
@@ -291,6 +334,13 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CurrencySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>c:/Users/Dani/Qt-source/FamilyFinancies/FamilyFinancies/currencyspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

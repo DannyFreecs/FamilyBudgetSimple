@@ -19,15 +19,12 @@ public:
 
 private:
     void initTableView();
-    bool validateCost();
+    std::pair<bool, int> validateSave();
 
 private slots:
     void on_pushButtonAddItem_clicked();
-
     void on_pushButtonRemoveItem_clicked();
-
     void on_pushButtonRemoveAll_clicked();
-
     void on_pushButtonSave_clicked();
 
 private:

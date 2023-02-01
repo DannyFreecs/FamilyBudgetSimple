@@ -66,7 +66,11 @@ void MainWindow::on_menuButtonExpenses_clicked()
 
 void MainWindow::on_actionAddBlock_triggered()
 {
+    /******RELEASE******/
     _activityReceipt.release();
+    _activityShoppingItem.release();
+    /************/
+
     _activityReceipt = std::make_unique<ActivityReceipt>();
     ui->mdiAreaActivity->closeAllSubWindows();
     ui->mdiAreaActivity->addSubWindow(_activityReceipt.get(), Qt::FramelessWindowHint);
@@ -76,7 +80,11 @@ void MainWindow::on_actionAddBlock_triggered()
 
 void MainWindow::on_actionAddItem_triggered()
 {
+    /******RELEASE******/
+    _activityReceipt.release();
     _activityShoppingItem.release();
+    /************/
+
     _activityShoppingItem = std::make_unique<ActivityShoppingItem>();
     ui->mdiAreaActivity->closeAllSubWindows();
     ui->mdiAreaActivity->addSubWindow(_activityShoppingItem.get(), Qt::FramelessWindowHint);

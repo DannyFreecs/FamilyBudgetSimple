@@ -24,17 +24,16 @@ public:
     ~MainWindow();
 
 private:
+    void releaseActivites();
+    void releasesubMenus();
     void setMenuButtonsToDefaultStyle();
     void setMenuButtonsSelectedStyle(QPushButton *button);
 
 private slots:
     void on_createActivityReceipt();
     void on_createActivityShoppingItem();
-
     void on_menuButtonExpenses_clicked();
-
     void on_actionAddBlock_triggered();
-
     void on_actionAddItem_triggered();
 
 private:

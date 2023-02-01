@@ -3,6 +3,8 @@
 #include "databasehandler.h"
 #include <QRegularExpression>
 #include <QMessageBox>
+#include <QToolTip>
+#include <QLocale>
 
 ActivityReceipt::ActivityReceipt(QWidget *parent) :
     QMainWindow(parent),
@@ -34,32 +36,22 @@ void ActivityReceipt::initTableView()
     ui->tableView->setModel(_receiptModel.get());
 }
 
-bool ActivityReceipt::validateCost()
+std::pair<bool, int> ActivityReceipt::validateSave()
 {
-    if (!ui->lineEditCostItem->text().toInt())
+    int sum {0};
+    for(int i=0; i<_receiptModel->rowCount(); i++)
     {
-        QMessageBox::warning(nullptr, "Hiba", "Összeg mezőben nem szám szerepel!");
-        return false;
+        sum += _receiptModel->item(i)->text().toInt();
     }
-
-    if (ui->lineEditCostItem->text().toInt() < 1)
-    {
-        QMessageBox::warning(nullptr, "Hiba", "Összeg mezőben nem 0-nál nagyobb szám szerepel!");
-        return false;
-    }
-
-    return true;
+    const int costAll{ui->spinBoxCostAll->valueFromText(ui->spinBoxCostAll->text())};
+    return std::make_pair(sum == costAll, std::abs(sum - costAll));
 }
 
 void ActivityReceipt::on_pushButtonAddItem_clicked()
 {
-    if (!validateCost())
-    {
-        return;
-    }
     // create row items and add the row to the item model
     QList<QStandardItem*> row;
-    QStandardItem *cost = new QStandardItem(ui->lineEditCostItem->text());
+    QStandardItem *cost = new QStandardItem(ui->spinBoxCosItem->text());
     cost->setTextAlignment(Qt::AlignCenter);
     QStandardItem *category = new QStandardItem(ui->comboBoxCategories->currentText());
     category->setTextAlignment(Qt::AlignCenter);
@@ -107,6 +99,15 @@ void ActivityReceipt::on_pushButtonRemoveAll_clicked()
 
 void ActivityReceipt::on_pushButtonSave_clicked()
 {
+    auto validateData{validateSave()};
+    if (!validateData.first)
+    {
+
+        QMessageBox::warning(nullptr, "Figyelmeztetés", "A tételek összege nem egyezik a blokk végösszegével!\n Különbség: " + QString::number(validateData.second) + " Ft");
+        return;
+    }
+
+    ui->spinBoxCostAll->setStyleSheet("background-color: rgb(173, 216, 230);");
     QVector<QVector<QString>> data(_receiptModel->rowCount());
     int ind {0};
     QVector<QString> rowData;
@@ -120,6 +121,17 @@ void ActivityReceipt::on_pushButtonSave_clicked()
         rowData.emplaceBack(row.at(3)->text());
         data[ind++] = rowData;
     }
-    DataBaseHandler::getDbManager()->insertShoppingExpanse(std::move(data));
+
+    if (DataBaseHandler::getDbManager()->insertShoppingExpanse(std::move(data)))
+    {
+        ui->spinBoxCostAll->cleanText();
+        ui->spinBoxCostAll->cleanText();
+        ui->lineEditComment->clear();
+        QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!");
+    }
+    else
+    {
+        QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
+    }
 }
 

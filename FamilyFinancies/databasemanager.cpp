@@ -76,7 +76,7 @@ QMap<QString, QString> DataBaseManager::getShoppingCategories()
     return categories;
 }
 
-void DataBaseManager::insertShoppingExpanse(QVector<QVector<QString> > &&shoppingData)
+bool DataBaseManager::insertShoppingExpanse(QVector<QVector<QString> > &&shoppingData)
 {
     QSqlQuery query;
 
@@ -99,8 +99,9 @@ void DataBaseManager::insertShoppingExpanse(QVector<QVector<QString> > &&shoppin
     query.addBindValue(dates);
     query.addBindValue(types);
 
-    if (query.execBatch())
+    if (!query.execBatch())
     {
-        int z = 7;
+        return false;
     }
+    return true;
 }

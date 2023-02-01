@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
         activityshoppingitem.h
         activityshoppingitem.cpp
         activityshoppingitem.ui
+        currencyspinbox.h
+        currencyspinbox.cpp
         resources.qrc
 )
 

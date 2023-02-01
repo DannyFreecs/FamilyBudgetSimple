@@ -22,6 +22,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="labelCost">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Összeg:</string>
         </property>
@@ -29,6 +34,11 @@
       </item>
       <item>
        <widget class="QLineEdit" name="lineEditCost">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
@@ -39,6 +49,11 @@
       </item>
       <item>
        <widget class="QLabel" name="labelCategory">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Kategória:</string>
         </property>
@@ -52,6 +67,11 @@
           <height>0</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
@@ -59,6 +79,11 @@
       </item>
       <item>
        <widget class="QLabel" name="labelDate">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Dátum:</string>
         </property>
@@ -66,6 +91,11 @@
       </item>
       <item>
        <widget class="QDateEdit" name="dateEdit">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
@@ -115,7 +145,8 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(173, 216, 230);</string>
+       <string notr="true">background-color: rgb(173, 216, 230);
+font: 700 9pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
        <string>Mentés</string>

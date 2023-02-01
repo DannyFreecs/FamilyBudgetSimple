@@ -182,7 +182,6 @@ void SubMenuExpenses::on_menuButtonCredits_clicked()
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameCredits);
     setSubMenuButtonsToDefaultStyle();
-    //setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingReceipt);
 }
 
 
@@ -191,7 +190,6 @@ void SubMenuExpenses::on_menuButtonHealthCare_clicked()
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameHealthCare);
     setSubMenuButtonsToDefaultStyle();
-    //setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingReceipt);
 }
 
 
@@ -200,6 +198,5 @@ void SubMenuExpenses::on_menuButtonOther_clicked()
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameOthers);
     setSubMenuButtonsToDefaultStyle();
-    //setSubMenuButtonToSelectedStyle(ui->pushButtonShoppingReceipt);
 }
 
