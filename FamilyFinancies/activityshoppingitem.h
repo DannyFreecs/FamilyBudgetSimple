@@ -15,6 +15,9 @@ public:
     explicit ActivityShoppingItem(QWidget *parent = nullptr);
     ~ActivityShoppingItem();
 
+private slots:
+    void on_pushButtonSave_clicked();
+
 private:
     Ui::ActivityShoppingItem *ui;
     QMap<QString, QString> _categories;

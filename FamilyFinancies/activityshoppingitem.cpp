@@ -1,4 +1,5 @@
 #include "activityshoppingitem.h"
+#include <QMessageBox>
 #include "ui_activityshoppingitem.h"
 #include "databasehandler.h"
 
@@ -19,3 +20,24 @@ ActivityShoppingItem::~ActivityShoppingItem()
 {
     delete ui;
 }
+
+void ActivityShoppingItem::on_pushButtonSave_clicked()
+{
+    QVector<QString> itemData;
+    itemData.emplaceBack(QString::number(ui->spinBoxCostItem->valueFromText(ui->spinBoxCostItem->text())));
+    itemData.emplaceBack(ui->textEditComment->toPlainText());
+    itemData.emplaceBack(ui->dateEdit->text());
+    itemData.emplaceBack(_categories.key(ui->comboBoxCategories->currentText()));
+
+    if (DataBaseHandler::getDbManager()->insertShoppingItem(std::move(itemData)))
+    {
+        ui->spinBoxCostItem->cleanText();
+        ui->textEditComment->clear();
+        QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!");
+    }
+    else
+    {
+        QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
+    }
+}
+

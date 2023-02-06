@@ -16,7 +16,8 @@ public:
     QVector<QString> getChildren();
     QMap<QString, QString> getShoppingCategories();
 
-    bool insertShoppingExpanse(QVector<QVector<QString>> &&shoppingData);
+    bool insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData);
+    bool insertShoppingItem(QVector<QString> &&itemData);
 
 private:
     QSqlDatabase _db;

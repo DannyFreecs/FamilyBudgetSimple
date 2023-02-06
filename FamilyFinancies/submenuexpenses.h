@@ -26,33 +26,24 @@ private:
     void setSubMenuButtonToSelectedStyle(QPushButton *button);
 
 signals:
-    void createActivityReceipt();
-    void createActivityShoppingItem();
+    void sendCreateActivityReceipt();
+    void sendCreateActivityShoppingItem();
+    void sendCreateActivityHouse(const QString &house);
 
 private slots:
     void on_menuButtonShopping_clicked();
-
     void on_menuButtonHouses_clicked();
-
     void on_menuButtonChildren_clicked();
-
     void on_menuButtonCars_clicked();
-
     void on_pushButtonShoppingItem_clicked();
-
     void on_pushButtonShoppingReceipt_clicked();
-
     void onSubMenuHouseButtonClicked();
-
     void onSubMenuChildButtonClicked();
-
     void onSubMenuCarButtonClicked();
-
     void on_menuButtonCredits_clicked();
-
     void on_menuButtonHealthCare_clicked();
-
     void on_menuButtonOther_clicked();
+    void on_menuButtonPhone_clicked();
 
 private:
     Ui::SubMenuExpenses *ui;

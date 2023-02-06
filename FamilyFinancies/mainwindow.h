@@ -10,6 +10,7 @@
 #include "submenuexpenses.h"
 #include "activityreceipt.h"
 #include "activityshoppingitem.h"
+#include "activityhouse.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,16 +31,20 @@ private:
     void setMenuButtonsSelectedStyle(QPushButton *button);
 
 private slots:
-    void on_createActivityReceipt();
-    void on_createActivityShoppingItem();
+    void onCreateActivityReceipt();
+    void onCreateActivityShoppingItem();
+    void onCreateActivityHouse(const QString &house);
     void on_menuButtonExpenses_clicked();
-    void on_actionAddBlock_triggered();
+    void on_actionAddReceipt_triggered();
     void on_actionAddItem_triggered();
 
 private:
     Ui::MainWindow *ui;
+    // Submenu windows
     std::unique_ptr<SubMenuExpenses> _subMenuExpenses;
+    // Activity windows
     std::unique_ptr<ActivityReceipt> _activityReceipt;
     std::unique_ptr<ActivityShoppingItem> _activityShoppingItem;
+    std::unique_ptr<ActivityHouse> _activityHouse;
 };
 #endif // MAINWINDOW_H

@@ -23,7 +23,7 @@ QVector<QString> DataBaseManager::getHouses()
 {
     QVector<QString> houses;
     QSqlQuery query;
-    query.exec("SELECT Address FROM Houses");
+    query.exec("SELECT Address FROM Houses;");
 
     while (query.next())
     {
@@ -37,7 +37,7 @@ QVector<QString> DataBaseManager::getCars()
 {
     QVector<QString> houses;
     QSqlQuery query;
-    query.exec("SELECT Type FROM Cars");
+    query.exec("SELECT Type FROM Cars;");
 
     while (query.next())
     {
@@ -51,7 +51,7 @@ QVector<QString> DataBaseManager::getChildren()
 {
     QVector<QString> houses;
     QSqlQuery query;
-    query.exec("SELECT Name FROM Children");
+    query.exec("SELECT Name FROM Children;");
 
     while (query.next())
     {
@@ -66,7 +66,7 @@ QMap<QString, QString> DataBaseManager::getShoppingCategories()
     QMap<QString, QString> categories;
 
     QSqlQuery query;
-    query.exec("SELECT id, SubCategory FROM Categories WHERE Category = 'Vásárlás'");
+    query.exec("SELECT id, SubCategory FROM Categories WHERE Category = 'Vásárlás';");
 
     while (query.next())
     {
@@ -76,11 +76,11 @@ QMap<QString, QString> DataBaseManager::getShoppingCategories()
     return categories;
 }
 
-bool DataBaseManager::insertShoppingExpanse(QVector<QVector<QString> > &&shoppingData)
+bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString> > &&shoppingData)
 {
     QSqlQuery query;
 
-    query.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(?, ?, ?, ?)");
+    query.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(?, ?, ?, ?);");
     QVariantList costs;
     QVariantList types;
     QVariantList dates;
@@ -104,4 +104,17 @@ bool DataBaseManager::insertShoppingExpanse(QVector<QVector<QString> > &&shoppin
         return false;
     }
     return true;
+}
+
+bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData)
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(:cost, :comment, :created, :type);");
+    query.bindValue(":cost", itemData[0].toInt());
+    query.bindValue(":comment", itemData[1]);
+    query.bindValue(":created", itemData[2]);
+    query.bindValue(":type", itemData[3].toInt());
+
+    return query.exec();
 }

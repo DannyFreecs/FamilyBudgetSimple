@@ -496,6 +496,39 @@ font: 700 16pt &quot;Verdana&quot;;
         </widget>
        </item>
        <item>
+        <widget class="QFrame" name="framePhone">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 0px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_10">
+          <item>
+           <widget class="QPushButton" name="menuButtonPhone">
+            <property name="styleSheet">
+             <string notr="true">border: 0px;
+text-align: left;
+font: 700 16pt &quot;Verdana&quot;;</string>
+            </property>
+            <property name="text">
+             <string>Telefon</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QFrame" name="frameCredits">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">

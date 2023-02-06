@@ -44,14 +44,14 @@ std::pair<bool, int> ActivityReceipt::validateSave()
         sum += _receiptModel->item(i)->text().toInt();
     }
     const int costAll{ui->spinBoxCostAll->valueFromText(ui->spinBoxCostAll->text())};
-    return std::make_pair(sum == costAll, std::abs(sum - costAll));
+    return {sum == costAll, std::abs(sum - costAll)};
 }
 
 void ActivityReceipt::on_pushButtonAddItem_clicked()
 {
     // create row items and add the row to the item model
     QList<QStandardItem*> row;
-    QStandardItem *cost = new QStandardItem(ui->spinBoxCosItem->text());
+    QStandardItem *cost = new QStandardItem(QString::number(ui->spinBoxCosItem->valueFromText(ui->spinBoxCosItem->text())));
     cost->setTextAlignment(Qt::AlignCenter);
     QStandardItem *category = new QStandardItem(ui->comboBoxCategories->currentText());
     category->setTextAlignment(Qt::AlignCenter);
@@ -102,7 +102,6 @@ void ActivityReceipt::on_pushButtonSave_clicked()
     auto validateData{validateSave()};
     if (!validateData.first)
     {
-
         QMessageBox::warning(nullptr, "Figyelmeztetés", "A tételek összege nem egyezik a blokk végösszegével!\n Különbség: " + QString::number(validateData.second) + " Ft");
         return;
     }
@@ -122,7 +121,7 @@ void ActivityReceipt::on_pushButtonSave_clicked()
         data[ind++] = rowData;
     }
 
-    if (DataBaseHandler::getDbManager()->insertShoppingExpanse(std::move(data)))
+    if (DataBaseHandler::getDbManager()->insertShoppingReceipt(std::move(data)))
     {
         ui->spinBoxCostAll->cleanText();
         ui->spinBoxCostAll->cleanText();

@@ -26,6 +26,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::releaseActivites()
+{
+    _activityReceipt.release();
+    _activityShoppingItem.release();
+    _activityHouse.release();
+}
+
 void MainWindow::setMenuButtonsToDefaultStyle()
 {
     QString defaultStyle("background-color: rgb(190, 229, 240); border: 2px solid black;");
@@ -40,14 +47,26 @@ void MainWindow::setMenuButtonsSelectedStyle(QPushButton *button)
     button->setStyleSheet("background-color: #67B7D1; border: 2px solid black;");
 }
 
-void MainWindow::on_createActivityReceipt()
+void MainWindow::onCreateActivityReceipt()
 {
-    on_actionAddBlock_triggered();
+    on_actionAddReceipt_triggered();
 }
 
-void MainWindow::on_createActivityShoppingItem()
+void MainWindow::onCreateActivityShoppingItem()
 {
     on_actionAddItem_triggered();
+}
+
+void MainWindow::onCreateActivityHouse(const QString &house)
+{
+    /******RELEASE******/
+    releaseActivites();
+    /************/
+
+    _activityHouse = std::make_unique<ActivityHouse>(house);
+    ui->mdiAreaActivity->closeAllSubWindows();
+    ui->mdiAreaActivity->addSubWindow(_activityHouse.get(), Qt::FramelessWindowHint);
+    _activityHouse->showMaximized();
 }
 
 
@@ -59,16 +78,15 @@ void MainWindow::on_menuButtonExpenses_clicked()
     ui->mdiAreaSubMenu->closeActiveSubWindow();
     ui->mdiAreaSubMenu->addSubWindow(_subMenuExpenses.get(), Qt::FramelessWindowHint);
     _subMenuExpenses->showMaximized();
-    connect(_subMenuExpenses.get(), &SubMenuExpenses::createActivityReceipt, this, &MainWindow::on_createActivityReceipt);
-    connect(_subMenuExpenses.get(), &SubMenuExpenses::createActivityShoppingItem, this, &MainWindow::on_createActivityShoppingItem);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityReceipt, this, &MainWindow::onCreateActivityReceipt);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityShoppingItem, this, &MainWindow::onCreateActivityShoppingItem);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityHouse, this, &MainWindow::onCreateActivityHouse);
 }
 
-
-void MainWindow::on_actionAddBlock_triggered()
+void MainWindow::on_actionAddReceipt_triggered()
 {
     /******RELEASE******/
-    _activityReceipt.release();
-    _activityShoppingItem.release();
+    releaseActivites();
     /************/
 
     _activityReceipt = std::make_unique<ActivityReceipt>();
@@ -77,12 +95,10 @@ void MainWindow::on_actionAddBlock_triggered()
     _activityReceipt->showMaximized();
 }
 
-
 void MainWindow::on_actionAddItem_triggered()
 {
     /******RELEASE******/
-    _activityReceipt.release();
-    _activityShoppingItem.release();
+    releaseActivites();
     /************/
 
     _activityShoppingItem = std::make_unique<ActivityShoppingItem>();
@@ -90,4 +106,7 @@ void MainWindow::on_actionAddItem_triggered()
     ui->mdiAreaActivity->addSubWindow(_activityShoppingItem.get(), Qt::FramelessWindowHint);
     _activityShoppingItem->showMaximized();
 }
+
+
+
 

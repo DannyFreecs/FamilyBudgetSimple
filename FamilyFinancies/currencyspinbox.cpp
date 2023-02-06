@@ -24,5 +24,16 @@ QString CurrencySpinBox::textFromValue(int value) const
 
 int CurrencySpinBox::valueFromText(const QString &text) const
 {
-    return locale().toInt(text);
+    QString currText;
+    for(int i = 0; i < text.length(); i++)
+    {
+        QChar c{text.at(i)};
+        if (c.isDigit())
+        {
+            currText += c;
+        }
+    }
+
+    int asd = currText.toInt();
+    return currText.toInt();
 }

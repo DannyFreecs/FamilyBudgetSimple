@@ -33,7 +33,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEditCost">
+       <widget class="CurrencySpinBox" name="spinBoxCostItem">
+        <property name="minimumSize">
+         <size>
+          <width>183</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <bold>true</bold>
@@ -44,6 +50,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
        </widget>
       </item>
@@ -156,6 +165,13 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CurrencySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>c:/Users/Dani/Qt-source/FamilyFinancies/FamilyFinancies/currencyspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
