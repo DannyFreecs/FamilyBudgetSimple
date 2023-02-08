@@ -8,6 +8,7 @@
 
 class YearMonthChooser : public QCalendarWidget
 {
+    Q_OBJECT
 public:
     YearMonthChooser(QWidget *parent = nullptr);
     void paintCell(QPainter *painter, const QRect& rect, QDate date) const override;

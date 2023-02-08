@@ -10,6 +10,7 @@ YearMonthChooser::YearMonthChooser(QWidget *parent) : QCalendarWidget(parent)
     setHorizontalHeaderFormat(QCalendarWidget::NoHorizontalHeader);
     setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
     setLocale(QLocale(QLocale::Hungarian, QLocale::Hungary));
+    setWindowFlags(Qt::Popup | Qt::FramelessWindowHint);
 
     QStandardItemModel *model = new QStandardItemModel(4, 3);
     _tableView = findChild<QTableView*>();
@@ -17,7 +18,6 @@ YearMonthChooser::YearMonthChooser(QWidget *parent) : QCalendarWidget(parent)
     _tableView->setShowGrid(true);
     _tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    auto lista = findChildren<QToolButton*>();
     _monthButton = findChild<QToolButton*>("qt_calendar_monthbutton");
     _monthButton->setEnabled(false);
     _monthButton->setHidden(true);
@@ -36,13 +36,17 @@ void YearMonthChooser::paintCell(QPainter *painter, const QRect &rect, QDate dat
     int col = rect.x() / rect.width();
 
     date = QDate(date.year(), 3 * row + col + 1, 1);
+    QFont bold("Segoe UI", 9);
+    bold.setBold(true);
+    painter->setFont(bold);
     painter->drawText(rect, locale().toString(date, "MMMM"), QTextOption(Qt::AlignCenter));
 }
 
 void YearMonthChooser::onCellPressed(const QModelIndex &index)
 {
     QDate date = QDate(_yearButton->text().toInt(), 3 * index.row() + index.column() + 1, QDate::currentDate().day());
-    setSelectedDate(date);
+    //setSelectedDate(date);
+    emit clicked(date);
 }
 
 void YearMonthChooser::onPrevYearPressed()

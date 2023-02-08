@@ -3,6 +3,9 @@
 #include "yearmonthchooser.h"
 #include "databasehandler.h"
 #include <QVBoxLayout>
+#include <QComboBox>
+#include <QMouseEvent>
+#include <QSpinBox>
 
 ActivityHouse::ActivityHouse(QWidget *parent) :
     QMainWindow(parent),
@@ -13,8 +16,7 @@ ActivityHouse::ActivityHouse(QWidget *parent) :
     setFixCosts();
 
     ui->dateEdit->setDate(QDate::currentDate());
-    YearMonthChooser *mycalendar = new YearMonthChooser();
-    ui->dateEdit->setCalendarWidget(mycalendar);
+    ui->dateEdit->setCalendarWidget(new YearMonthChooser);
 
     ui->frameInsurance->setHidden(true);
     ui->frameOther->setHidden(true);
@@ -51,4 +53,3 @@ void ActivityHouse::on_toolButtonOther_clicked()
     ui->frameOther->setHidden(!ui->frameOther->isHidden());
     ui->toolButtonOther->setArrowType(ui->frameOther->isHidden() ? Qt::UpArrow : Qt::DownArrow);
 }
-

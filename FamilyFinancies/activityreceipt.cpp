@@ -90,12 +90,10 @@ void ActivityReceipt::on_pushButtonRemoveItem_clicked()
     }
 }
 
-
 void ActivityReceipt::on_pushButtonRemoveAll_clicked()
 {
     _receiptModel->clear();
 }
-
 
 void ActivityReceipt::on_pushButtonSave_clicked()
 {
@@ -133,4 +131,3 @@ void ActivityReceipt::on_pushButtonSave_clicked()
         QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
     }
 }
-
