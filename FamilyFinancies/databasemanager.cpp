@@ -76,6 +76,21 @@ QMap<QString, QString> DataBaseManager::getShoppingCategories()
     return categories;
 }
 
+QMap<QString, int> DataBaseManager::getHouseFixCosts()
+{
+    QMap<QString, int> fixCosts;;
+
+    QSqlQuery query;
+    query.exec("Select SubCategory, SubSubCategory, FixAmount FROM Categories WHERE Category = 'Ház' AND Fix = 1;");
+
+    while (query.next())
+    {
+        fixCosts.insert(query.isNull(1) ? query.value(0).toString() : query.value(1).toString(), query.value(2).toInt());
+    }
+
+    return fixCosts;
+}
+
 bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString> > &&shoppingData)
 {
     QSqlQuery query;

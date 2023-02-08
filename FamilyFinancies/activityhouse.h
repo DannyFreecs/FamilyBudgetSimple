@@ -16,13 +16,16 @@ public:
     ActivityHouse(const QString& house, QWidget *parent = nullptr);
     ~ActivityHouse();
 
+private:
+    void setFixCosts();
+
 private slots:
     void on_toolButtonInsurance_clicked();
-
     void on_toolButtonOther_clicked();
 
 private:
     Ui::ActivityHouse *ui;
+    QMap<QString, int> _fixCosts;
 };
 
 #endif // ACTIVITYHOUSE_H

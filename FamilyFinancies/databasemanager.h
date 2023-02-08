@@ -15,6 +15,8 @@ public:
     QVector<QString> getCars();
     QVector<QString> getChildren();
     QMap<QString, QString> getShoppingCategories();
+    QMap<QString, int> getHouseFixCosts();
+
 
     bool insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData);
     bool insertShoppingItem(QVector<QString> &&itemData);
