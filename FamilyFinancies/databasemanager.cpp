@@ -133,3 +133,19 @@ bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData)
 
     return query.exec();
 }
+
+bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QMap<QString, int> &&bills)
+{
+    QSqlQuery query;
+    query.prepare("SELECT id FROM Houses WHERE Address = :address;");
+    query.bindValue(":address", house);
+    if (!query.exec() || !query.next())
+    {
+        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
+        return false;
+    }
+
+    int houseID = query.value(0).toInt();
+
+    return true;
+}

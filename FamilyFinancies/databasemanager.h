@@ -20,6 +20,7 @@ public:
 
     bool insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData);
     bool insertShoppingItem(QVector<QString> &&itemData);
+    bool insertHouseBills(const QString &house, const QDate &date, QMap<QString, int> &&bills);
 
 private:
     QSqlDatabase _db;
