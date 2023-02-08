@@ -45,7 +45,6 @@ void YearMonthChooser::paintCell(QPainter *painter, const QRect &rect, QDate dat
 void YearMonthChooser::onCellPressed(const QModelIndex &index)
 {
     QDate date = QDate(_yearButton->text().toInt(), 3 * index.row() + index.column() + 1, QDate::currentDate().day());
-    //setSelectedDate(date);
     emit clicked(date);
 }
 

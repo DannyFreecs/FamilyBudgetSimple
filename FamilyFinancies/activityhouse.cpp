@@ -14,10 +14,7 @@ ActivityHouse::ActivityHouse(QWidget *parent) :
     ui->setupUi(this);
 
     setFixCosts();
-
-    ui->dateEdit->setDate(QDate::currentDate());
-    ui->dateEdit->setCalendarWidget(new YearMonthChooser);
-
+    setupDateEdits();
     ui->frameInsurance->setHidden(true);
     ui->frameOther->setHidden(true);
 }
@@ -40,6 +37,18 @@ void ActivityHouse::setFixCosts()
     ui->spinBoxInternetBill->setValue(_fixCosts["Internet"]);
     ui->spinBoxCommonBill->setValue(_fixCosts["Közös költség"]);
     ui->spinBoxInsurance->setValue(_fixCosts["Biztosítás"]);
+}
+
+void ActivityHouse::setupDateEdits()
+{
+    ui->dateEdit->setDate(QDate::currentDate());
+    ui->dateEdit->setCalendarWidget(new YearMonthChooser);
+    auto le = ui->dateEdit->findChild<QLineEdit*>();
+    le->setReadOnly(true);
+    connect(le, &QLineEdit::selectionChanged, [=](){le->setSelection(0,0);});
+
+    ui->dateEditOtherCost->setDate(QDate::currentDate());
+    ui->dateEditInsurance->setDate(QDate::currentDate());
 }
 
 void ActivityHouse::on_toolButtonInsurance_clicked()

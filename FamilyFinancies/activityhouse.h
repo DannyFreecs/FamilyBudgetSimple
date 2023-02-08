@@ -18,6 +18,7 @@ public:
 
 private:
     void setFixCosts();
+    void setupDateEdits();
 
 private slots:
     void on_toolButtonInsurance_clicked();
