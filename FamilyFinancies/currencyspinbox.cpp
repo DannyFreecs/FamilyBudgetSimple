@@ -4,12 +4,12 @@ CurrencySpinBox::CurrencySpinBox(QWidget *parent) : QSpinBox(parent)
 {
     setButtonSymbols(QAbstractSpinBox::NoButtons);
     setLocale(QLocale(QLocale::Hungarian, QLocale::Hungary));
-
 }
 
 QString CurrencySpinBox::textFromValue(int value) const
 {
-    return locale().toCurrencyString(costFromText(text()));
+    int textValue{costFromText(text())};
+    return locale().toCurrencyString(textValue > 0 ? textValue : value);
 }
 
 int CurrencySpinBox::valueFromText(const QString &text) const
