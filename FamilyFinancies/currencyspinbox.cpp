@@ -9,31 +9,20 @@ CurrencySpinBox::CurrencySpinBox(QWidget *parent) : QSpinBox(parent)
 
 QString CurrencySpinBox::textFromValue(int value) const
 {
-    QString currText;
-    for(int i = 0; i < text().length(); i++)
-    {
-        QChar c{text().at(i)};
-        if (c.isDigit())
-        {
-            currText += c;
-        }
-    }
-
-    return locale().toCurrencyString(currText.toInt());
+    return locale().toCurrencyString(costFromText(text()));
 }
 
 int CurrencySpinBox::valueFromText(const QString &text) const
 {
-    QString currText;
-    for(int i = 0; i < text.length(); i++)
-    {
-        QChar c{text.at(i)};
-        if (c.isDigit())
-        {
-            currText += c;
-        }
-    }
+    return costFromText(text);
+}
 
-    int asd = currText.toInt();
-    return currText.toInt();
+int CurrencySpinBox::costFromText(const QString &text) const
+{
+    QString cost{};
+    for (const auto c : text)
+        if (c.isDigit())
+            cost += c;
+
+    return cost.toInt();
 }

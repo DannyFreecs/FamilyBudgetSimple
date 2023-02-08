@@ -10,6 +10,9 @@ public:
     CurrencySpinBox(QWidget *parent = nullptr);
     QString textFromValue(int value) const override;
     int valueFromText(const QString &text) const override;
+
+private:
+    int costFromText(const QString &text) const;
 };
 
 #endif // CURRENCYSPINBOX_H
