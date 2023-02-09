@@ -18,10 +18,12 @@ public:
 
 private:
     void setFixCosts();
+    void checkHouseExpenseExistences();
     void setupDateEdits();
     void saveHouseBills();
     void saveHouseInsurance();
     void saveHouseOtherCost();
+    void hideWarnings();
 
 private slots:
     void on_toolButtonInsurance_clicked();
@@ -30,6 +32,7 @@ private slots:
 
 private:
     Ui::ActivityHouse *ui;
+    int _id;
     QMap<QString, int> _fixCosts;
 };
 

@@ -24,6 +24,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_7">
+    <property name="bottomMargin">
+     <number>9</number>
+    </property>
     <item alignment="Qt::AlignHCenter">
      <widget class="QLabel" name="labelAddress">
       <property name="font">
@@ -127,7 +130,48 @@
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelWarnWater">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A tétel már szerepel az adatbázisban a megadott hónapban! Felülírásra kerül az új értékkel!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="resources.qrc">:/icons/Resources/Yellow Triangle Warning.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="CurrencySpinBox" name="spinBoxWaterBill">
+           <property name="minimumSize">
+            <size>
+             <width>365</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <bold>true</bold>
@@ -164,7 +208,48 @@
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelWarnGas">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A tétel már szerepel az adatbázisban a megadott hónapban! Felülírásra kerül az új értékkel!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="resources.qrc">:/icons/Resources/Yellow Triangle Warning.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="CurrencySpinBox" name="spinBoxGasBill">
+           <property name="minimumSize">
+            <size>
+             <width>365</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <bold>true</bold>
@@ -201,7 +286,48 @@
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelWarnElectricity">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A tétel már szerepel az adatbázisban a megadott hónapban! Felülírásra kerül az új értékkel!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="resources.qrc">:/icons/Resources/Yellow Triangle Warning.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="CurrencySpinBox" name="spinBoxElectricityBill">
+           <property name="minimumSize">
+            <size>
+             <width>365</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <bold>true</bold>
@@ -238,7 +364,54 @@
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelWarnInternet">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A tétel már szerepel az adatbázisban a megadott hónapban! Felülírásra kerül az új értékkel!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="resources.qrc">:/icons/Resources/Yellow Triangle Warning.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="CurrencySpinBox" name="spinBoxInternetBill">
+           <property name="minimumSize">
+            <size>
+             <width>365</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <bold>true</bold>
@@ -275,7 +448,60 @@
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelWarnCommon">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A tétel már szerepel az adatbázisban a megadott hónapban! Felülírásra kerül az új értékkel!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="resources.qrc">:/icons/Resources/Yellow Triangle Warning.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="CurrencySpinBox" name="spinBoxCommonBill">
+           <property name="minimumSize">
+            <size>
+             <width>365</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <bold>true</bold>
@@ -369,6 +595,28 @@
              </property>
              <property name="maximum">
               <number>999999999</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelWarnInsurance">
+             <property name="maximumSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A tétel már szerepel az adatbázisban a megadott évben! Felülírásra kerül az új értékkel!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="resources.qrc">:/icons/Resources/Yellow Triangle Warning.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -598,7 +846,23 @@
       </item>
      </layout>
     </item>
-    <item alignment="Qt::AlignRight">
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>25</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item alignment="Qt::AlignHCenter">
      <widget class="QPushButton" name="pushButtonSave">
       <property name="font">
        <font>
@@ -622,6 +886,9 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Expanding</enum>
+      </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
@@ -640,6 +907,8 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
    <header>c:/Users/Dani/Qt-source/FamilyFinancies/FamilyFinancies/currencyspinbox.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

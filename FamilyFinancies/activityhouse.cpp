@@ -13,7 +13,7 @@ ActivityHouse::ActivityHouse(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setFixCosts();
+    hideWarnings();
     setupDateEdits();
     ui->frameInsurance->setHidden(true);
     ui->frameOther->setHidden(true);
@@ -22,6 +22,9 @@ ActivityHouse::ActivityHouse(QWidget *parent) :
 ActivityHouse::ActivityHouse(const QString& house, QWidget *parent) : ActivityHouse(parent)
 {
     ui->labelAddress->setText(house);
+    _id = DataBaseHandler::getDbManager()->getHouseId(house);
+    setFixCosts();
+    checkHouseExpenseExistences();
 }
 
 ActivityHouse::~ActivityHouse()
@@ -37,6 +40,40 @@ void ActivityHouse::setFixCosts()
     ui->spinBoxInternetBill->setValue(_fixCosts["Internet"]);
     ui->spinBoxCommonBill->setValue(_fixCosts["Közös költség"]);
     ui->spinBoxInsurance->setValue(_fixCosts["Biztosítás"]);
+}
+
+void ActivityHouse::checkHouseExpenseExistences()
+{
+    if (DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Víz")
+            && ui->spinBoxWaterBill->valueFromText(ui->spinBoxWaterBill->text()) > 0)
+    {
+        ui->labelWarnWater->setHidden(false);
+    }
+    if (DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Villany")
+            && ui->spinBoxElectricityBill->valueFromText(ui->spinBoxElectricityBill->text()) > 0)
+    {
+        ui->labelWarnElectricity->setHidden(false);
+    }
+    if (DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Gáz")
+            && ui->spinBoxGasBill->valueFromText(ui->spinBoxGasBill->text()) > 0)
+    {
+        ui->labelWarnGas->setHidden(false);
+    }
+    if (DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Közös költség")
+            && ui->spinBoxCommonBill->valueFromText(ui->spinBoxCommonBill->text()) > 0)
+    {
+        ui->labelWarnCommon->setHidden(false);
+    }
+    if (DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Internet")
+            && ui->spinBoxInternetBill->valueFromText(ui->spinBoxInternetBill->text()) > 0)
+    {
+        ui->labelWarnInternet->setHidden(false);
+    }
+    if (DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Biztosítás")
+            && ui->spinBoxInsurance->valueFromText(ui->spinBoxInsurance->text()) > 0)
+    {
+        ui->labelWarnInsurance->setHidden(false);
+    }
 }
 
 void ActivityHouse::setupDateEdits()
@@ -80,6 +117,16 @@ void ActivityHouse::saveHouseInsurance()
 void ActivityHouse::saveHouseOtherCost()
 {
 
+}
+
+void ActivityHouse::hideWarnings()
+{
+    ui->labelWarnCommon->hide();
+    ui->labelWarnElectricity->hide();
+    ui->labelWarnGas->hide();
+    ui->labelWarnInsurance->hide();
+    ui->labelWarnInternet->hide();
+    ui->labelWarnWater->hide();
 }
 
 void ActivityHouse::on_toolButtonInsurance_clicked()

@@ -4,6 +4,7 @@
 //ATTRIBUTIONS: <a href="https://www.freepik.com/free-vector/home-budget-icons-set_4017023.htm">Image by macrovector</a> on Freepik
 // <a href="https://www.flaticon.com/free-icons/budget" title="budget icons">Budget icons created by Freepik - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/budget" title="budget icons">Budget icons created by Flat Icons - Flaticon</a>
+// <a href="https://www.freepik.com/free-photo/yellow-triangle-warning-sign-icon-isolated_3686557.htm#query=exclamation%20mark&position=4&from_view=search&track=ais">Image by rawpixel.com</a> on Freepik
 
 #include <QMainWindow>
 #include <memory>

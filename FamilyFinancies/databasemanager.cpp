@@ -19,7 +19,7 @@ void DataBaseManager::connect()
     }
 }
 
-QVector<QString> DataBaseManager::getHouses()
+QVector<QString> DataBaseManager::getHouses() const
 {
     QVector<QString> houses;
     QSqlQuery query;
@@ -33,7 +33,41 @@ QVector<QString> DataBaseManager::getHouses()
     return houses;
 }
 
-QVector<QString> DataBaseManager::getCars()
+int DataBaseManager::getHouseId(const QString &address) const
+{
+    QSqlQuery query;
+    query.prepare("SELECT id FROM Houses WHERE Address = :address;");
+    query.bindValue(":address", address);
+    if (!query.exec() || !query.next()) return -1;
+
+    return (query.exec() && query.next()) ? query.value(0).toInt() : -1;
+}
+
+int DataBaseManager::getHouseExpenseId(QString &&subCategory, QString &&subSubCategory) const
+{
+    QSqlQuery query;
+    query.prepare(QString("SELECT id FROM Categories WHERE SubCategory = :sub") + QString(subSubCategory.isEmpty() ? ";" : " AND SubSubCategory = :subsub"));
+    query.bindValue(":sub", subCategory);
+    query.bindValue(":subsub", subSubCategory);
+
+    return (query.exec() && query.next()) ? query.value(0).toInt() : -1;
+}
+
+bool DataBaseManager::checkHouseExpenseExistence(const int houseId, const QDate &when, QString &&type, QString &&subType) const
+{
+    int expType{getHouseExpenseId(std::move(type), std::move(subType))};
+    if (expType == -1) return false;
+
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND strftime('%Y-%m', CreateDate) = :date;");
+    query.bindValue(":house", houseId);
+    query.bindValue(":type", expType);
+    query.bindValue(":date", when.toString("yyyy-MM"));
+
+    return query.exec() && query.next();
+}
+
+QVector<QString> DataBaseManager::getCars() const
 {
     QVector<QString> houses;
     QSqlQuery query;
@@ -47,7 +81,7 @@ QVector<QString> DataBaseManager::getCars()
     return houses;
 }
 
-QVector<QString> DataBaseManager::getChildren()
+QVector<QString> DataBaseManager::getChildren() const
 {
     QVector<QString> houses;
     QSqlQuery query;
@@ -61,7 +95,7 @@ QVector<QString> DataBaseManager::getChildren()
     return houses;
 }
 
-QMap<QString, QString> DataBaseManager::getShoppingCategories()
+QMap<QString, QString> DataBaseManager::getShoppingCategories() const
 {
     QMap<QString, QString> categories;
 
@@ -76,7 +110,7 @@ QMap<QString, QString> DataBaseManager::getShoppingCategories()
     return categories;
 }
 
-QMap<QString, int> DataBaseManager::getHouseFixCosts()
+QMap<QString, int> DataBaseManager::getHouseFixCosts() const
 {
     QMap<QString, int> fixCosts;;
 
@@ -91,7 +125,7 @@ QMap<QString, int> DataBaseManager::getHouseFixCosts()
     return fixCosts;
 }
 
-bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString> > &&shoppingData)
+bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData) const
 {
     QSqlQuery query;
 
@@ -121,7 +155,7 @@ bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString> > &&shoppin
     return true;
 }
 
-bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData)
+bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
 {
     QSqlQuery query;
 
@@ -134,7 +168,7 @@ bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData)
     return query.exec();
 }
 
-bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QMap<QString, int> &&bills)
+bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QMap<QString, int> &&bills) const
 {
     QSqlQuery query;
     query.prepare("SELECT id FROM Houses WHERE Address = :address;");
