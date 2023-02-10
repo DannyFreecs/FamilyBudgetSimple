@@ -59,10 +59,13 @@ bool DataBaseManager::checkHouseExpenseExistence(const int houseId, const QDate 
     if (expType == -1) return false;
 
     QSqlQuery query;
-    query.prepare("SELECT * FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND strftime('%Y-%m', CreateDate) = :date;");
+    // ha biztositas => evet kell nezni nem ev + honapot!
+    QString dateFormat{expType == 13 ? "strftime('%Y', CreateDate)" : "strftime('%Y-%m', CreateDate)"};
+    query.prepare("SELECT * FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND " + dateFormat + " = :date;");
     query.bindValue(":house", houseId);
     query.bindValue(":type", expType);
-    query.bindValue(":date", when.toString("yyyy-MM"));
+    // ha biztositas => evet kell nezni nem ev + honapot!
+    query.bindValue(":date", when.toString(expType == 13 ? "yyyy" : "yyyy-MM"));
 
     return query.exec() && query.next();
 }
