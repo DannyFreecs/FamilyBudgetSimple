@@ -20,13 +20,14 @@ private:
     void setFixCosts();
 
     void setupDateEdits();
-    void saveHouseBills();
     void hideWarnings();
 
 private slots:
     void on_toolButtonInsurance_clicked();
     void on_toolButtonOther_clicked();
     void checkHouseExpenseExistences();
+
+    void on_pushButtonSaveBills_clicked();
 
 private:
     Ui::ActivityHouse *ui;

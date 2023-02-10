@@ -84,27 +84,6 @@ void ActivityHouse::setupDateEdits()
     ui->dateEditInsurance->setDate(QDate::currentDate());
 }
 
-void ActivityHouse::saveHouseBills()
-{
-    QMap<QString, int> costs;
-    int cost = ui->spinBoxWaterBill->valueFromText(ui->spinBoxWaterBill->text());
-    if (cost > 0) costs.insert("Víz", cost);
-
-    cost = ui->spinBoxGasBill->valueFromText(ui->spinBoxGasBill->text());
-    if (cost > 0) costs.insert("Gáz", cost);
-
-    cost = ui->spinBoxElectricityBill->valueFromText(ui->spinBoxElectricityBill->text());
-    if (cost > 0) costs.insert("Villany", cost);
-
-    cost = ui->spinBoxInternetBill->valueFromText(ui->spinBoxInternetBill->text());
-    if (cost > 0) costs.insert("Internet", cost);
-
-    cost = ui->spinBoxCommonBill->valueFromText(ui->spinBoxCommonBill->text());
-    if (cost > 0) costs.insert("Közös költség", cost);
-
-    DataBaseHandler::getDbManager()->insertHouseBills(ui->labelAddress->text(), ui->dateEdit->date(), std::move(costs));
-}
-
 void ActivityHouse::hideWarnings()
 {
     ui->labelWarnCommon->hide();
@@ -125,5 +104,32 @@ void ActivityHouse::on_toolButtonOther_clicked()
 {
     ui->frameOther->setHidden(!ui->frameOther->isHidden());
     ui->toolButtonOther->setArrowType(ui->frameOther->isHidden() ? Qt::UpArrow : Qt::DownArrow);
+}
+
+
+void ActivityHouse::on_pushButtonSaveBills_clicked()
+{
+    QVector<std::pair<QString, int>> insert;
+    QVector<std::pair<QString, int>> update;
+
+    int cost = ui->spinBoxWaterBill->valueFromText(ui->spinBoxWaterBill->text());
+    if (cost > 0) ui->labelWarnWater->isHidden() ? insert.emplaceBack("Víz", cost) : update.emplaceBack("Víz", cost);
+
+    cost = ui->spinBoxGasBill->valueFromText(ui->spinBoxGasBill->text());
+    if (cost > 0) ui->labelWarnGas->isHidden() ? insert.emplaceBack("Gáz", cost) : update.emplaceBack("Gáz", cost);
+
+    cost = ui->spinBoxElectricityBill->valueFromText(ui->spinBoxElectricityBill->text());
+    if (cost > 0) ui->labelWarnElectricity->isHidden() ? insert.emplaceBack("Villany", cost) : update.emplaceBack("Villany", cost);
+
+
+    cost = ui->spinBoxInternetBill->valueFromText(ui->spinBoxInternetBill->text());
+    if (cost > 0) ui->labelWarnInternet->isHidden() ? insert.emplaceBack("Internet", cost) : update.emplaceBack("Internet", cost);
+
+
+    cost = ui->spinBoxCommonBill->valueFromText(ui->spinBoxCommonBill->text());
+    if (cost > 0) ui->labelWarnCommon->isHidden() ? insert.emplaceBack("Közös költség", cost) : update.emplaceBack("Közös költség", cost);
+
+    if (insert.size() > 0) DataBaseHandler::getDbManager()->insertHouseBills(ui->labelAddress->text(), ui->dateEdit->date(), std::move(insert));
+    if (update.size() > 0) DataBaseHandler::getDbManager()->updateHouseBills(ui->labelAddress->text(), ui->dateEdit->date(), std::move(update));
 }
 

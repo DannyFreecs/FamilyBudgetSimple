@@ -140,10 +140,10 @@ bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString>> &&shopping
 
     for(const auto& row : shoppingData)
     {
-        costs      << row[0].toInt();
-        types      << row[1].toInt();
-        dates      << row[2];
-        comments   << row[3];
+        costs    << row[0].toInt();
+        types    << row[1].toInt();
+        dates    << row[2];
+        comments << row[3];
     }
 
     query.addBindValue(costs);
@@ -151,11 +151,7 @@ bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString>> &&shopping
     query.addBindValue(dates);
     query.addBindValue(types);
 
-    if (!query.execBatch())
-    {
-        return false;
-    }
-    return true;
+    return query.execBatch();
 }
 
 bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
@@ -171,7 +167,7 @@ bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
     return query.exec();
 }
 
-bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QMap<QString, int> &&bills) const
+bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const
 {
     QSqlQuery query;
     query.prepare("SELECT id FROM Houses WHERE Address = :address;");
@@ -183,6 +179,64 @@ bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, 
     }
 
     int houseID = query.value(0).toInt();
+    query.clear();
+    query.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, HouseFK) VALUES(?, ?, ?, ?);");
+    QVariantList costs;
+    QVariantList dates;
+    QVariantList types;
+    QVariantList houseFK;
 
-    return true;
+    for(auto& bill : bills)
+    {
+        costs   << bill.second;
+        dates   << date.toString("yyyy-MM-dd");
+        types   << getHouseExpenseId("Rezsi", std::move(bill.first));
+        houseFK << houseID;
+    }
+
+    query.addBindValue(costs);
+    query.addBindValue(dates);
+    query.addBindValue(types);
+    query.addBindValue(houseFK);
+
+    return query.execBatch();
+}
+
+bool DataBaseManager::updateHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int> > &&bills) const
+{
+    QSqlQuery houseQuery;
+    houseQuery.prepare("SELECT id FROM Houses WHERE Address = :address;");
+    houseQuery.bindValue(":address", house);
+    if (!houseQuery.exec() || !houseQuery.next())
+    {
+        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
+        return false;
+    }
+
+    int houseID = houseQuery.value(0).toInt();
+
+    QSqlQuery updateQuery;
+    updateQuery.prepare("UPDATE Expenses SET Cost = ? WHERE id = ?;");
+
+    QVariantList costs;
+    QVariantList ids;
+
+    QSqlQuery typeQuery;
+    typeQuery.prepare("SELECT id FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND strftime('%Y-%m', CreateDate) = :date;");
+    typeQuery.bindValue(":house", houseID);
+    typeQuery.bindValue(":date", date.toString("yyyy-MM"));
+
+    for(auto& bill : bills)
+    {
+        typeQuery.bindValue(":type", getHouseExpenseId("Rezsi", std::move(bill.first)));
+        if (!typeQuery.exec() || !typeQuery.next()) return false;
+
+        costs << bill.second;
+        ids   << typeQuery.value(0).toInt();
+    }
+
+    updateQuery.addBindValue(costs);
+    updateQuery.addBindValue(ids);
+
+    return updateQuery.execBatch();
 }
