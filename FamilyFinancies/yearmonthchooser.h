@@ -18,12 +18,8 @@ public slots:
     void onPrevYearPressed();
     void onNextYearPressed();
 
-private:
-    QTableView *_tableView;
-    QToolButton *_monthButton;
-    QToolButton *_yearButton;
-    QToolButton *_prevButton;
-    QToolButton *_nextButton;
+private:    
+    QToolButton *_yearButton;    
 };
 
 #endif // YEARMONTHCHOOSER_H
