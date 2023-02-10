@@ -19,6 +19,7 @@ void DataBaseManager::connect()
     }
 }
 
+// Returns all house addresses
 QVector<QString> DataBaseManager::getHouses() const
 {
     QVector<QString> houses;
@@ -33,6 +34,7 @@ QVector<QString> DataBaseManager::getHouses() const
     return houses;
 }
 
+// Returns the id of the house that has the same address as the parameter
 int DataBaseManager::getHouseId(const QString &address) const
 {
     QSqlQuery query;
@@ -43,6 +45,7 @@ int DataBaseManager::getHouseId(const QString &address) const
     return (query.exec() && query.next()) ? query.value(0).toInt() : -1;
 }
 
+// Returns the id of a house related expense category
 int DataBaseManager::getHouseExpenseId(QString &&subCategory, QString &&subSubCategory) const
 {
     QSqlQuery query;
@@ -53,51 +56,55 @@ int DataBaseManager::getHouseExpenseId(QString &&subCategory, QString &&subSubCa
     return (query.exec() && query.next()) ? query.value(0).toInt() : -1;
 }
 
+// Check if a given house expense is already in the database with the correspoding date. (To see if the user wants to account again a month/year related expense)
 bool DataBaseManager::checkHouseExpenseExistence(const int houseId, const QDate &when, QString &&type, QString &&subType) const
 {
     int expType{getHouseExpenseId(std::move(type), std::move(subType))};
     if (expType == -1) return false;
 
     QSqlQuery query;
-    // ha biztositas => evet kell nezni nem ev + honapot!
+    // if insurance => use year else use year + month (bills)!
     QString dateFormat{expType == 13 ? "strftime('%Y', CreateDate)" : "strftime('%Y-%m', CreateDate)"};
     query.prepare("SELECT * FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND " + dateFormat + " = :date;");
     query.bindValue(":house", houseId);
     query.bindValue(":type", expType);
-    // ha biztositas => evet kell nezni nem ev + honapot!
+    // if insurance => use year else use year + month (bills)!
     query.bindValue(":date", when.toString(expType == 13 ? "yyyy" : "yyyy-MM"));
 
     return query.exec() && query.next();
 }
 
+// Returns the cars from the database
 QVector<QString> DataBaseManager::getCars() const
 {
-    QVector<QString> houses;
+    QVector<QString> cars;
     QSqlQuery query;
     query.exec("SELECT Type FROM Cars;");
 
     while (query.next())
     {
-        houses.append(query.value(0).toString());
+        cars.append(query.value(0).toString());
     }
 
-    return houses;
+    return cars;
 }
 
+// Returns the children from the database
 QVector<QString> DataBaseManager::getChildren() const
 {
-    QVector<QString> houses;
+    QVector<QString> children;
     QSqlQuery query;
     query.exec("SELECT Name FROM Children;");
 
     while (query.next())
     {
-        houses.append(query.value(0).toString());
+        children.append(query.value(0).toString());
     }
 
-    return houses;
+    return children;
 }
 
+// Returns the shopping related categories ids and names
 QMap<QString, QString> DataBaseManager::getShoppingCategories() const
 {
     QMap<QString, QString> categories;
@@ -113,6 +120,7 @@ QMap<QString, QString> DataBaseManager::getShoppingCategories() const
     return categories;
 }
 
+// Returns the fix house expenses (every year/month same cost as before)
 QMap<QString, int> DataBaseManager::getHouseFixCosts() const
 {
     QMap<QString, int> fixCosts;;
@@ -122,12 +130,14 @@ QMap<QString, int> DataBaseManager::getHouseFixCosts() const
 
     while (query.next())
     {
+        // if the SubSubCategory is NULL => This is the 'Insurance', else it is bill (water, gas, etc.)
         fixCosts.insert(query.isNull(1) ? query.value(0).toString() : query.value(1).toString(), query.value(2).toInt());
     }
 
     return fixCosts;
 }
 
+// Inserts records of a receipt into the database
 bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData) const
 {
     QSqlQuery query;
@@ -154,6 +164,7 @@ bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString>> &&shopping
     return query.execBatch();
 }
 
+// Inserts 1 shopping relatzed expense into the database
 bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
 {
     QSqlQuery query;
@@ -167,6 +178,7 @@ bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
     return query.exec();
 }
 
+// Inserts the bills of a house (water, net, electricity, etc.)
 bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const
 {
     QSqlQuery query;
@@ -202,6 +214,7 @@ bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, 
     return query.execBatch();
 }
 
+// Modifies a bill that is already in the database
 bool DataBaseManager::updateHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int> > &&bills) const
 {
     QSqlQuery houseQuery;
