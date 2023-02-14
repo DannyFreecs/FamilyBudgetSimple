@@ -6,6 +6,7 @@
 #include <QComboBox>
 #include <QMouseEvent>
 #include <QSpinBox>
+#include <QMessageBox>
 
 ActivityHouse::ActivityHouse(QWidget *parent) :
     QMainWindow(parent),
@@ -106,7 +107,6 @@ void ActivityHouse::on_toolButtonOther_clicked()
     ui->toolButtonOther->setArrowType(ui->frameOther->isHidden() ? Qt::UpArrow : Qt::DownArrow);
 }
 
-
 void ActivityHouse::on_pushButtonSaveBills_clicked()
 {
     QVector<std::pair<QString, int>> insert;
@@ -129,7 +129,57 @@ void ActivityHouse::on_pushButtonSaveBills_clicked()
     cost = ui->spinBoxCommonBill->valueFromText(ui->spinBoxCommonBill->text());
     if (cost > 0) ui->labelWarnCommon->isHidden() ? insert.emplaceBack("Közös költség", cost) : update.emplaceBack("Közös költség", cost);
 
-    if (insert.size() > 0) DataBaseHandler::getDbManager()->insertHouseBills(ui->labelAddress->text(), ui->dateEdit->date(), std::move(insert));
-    if (update.size() > 0) DataBaseHandler::getDbManager()->updateHouseBills(ui->labelAddress->text(), ui->dateEdit->date(), std::move(update));
+    if (insert.size() > 0)
+    {
+        DataBaseHandler::getDbManager()->insertHouseBills(ui->labelAddress->text(), ui->dateEdit->date(), std::move(insert))
+                ? QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!")
+                : QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
+    }
+    if (update.size() > 0)
+    {
+        QMessageBox msg;
+        msg.setWindowTitle("Módosítás");
+        msg.setText("Szeretné felülírni a korábbi rezsi költségeket?");
+        auto yes = msg.addButton("Igen", QMessageBox::YesRole);
+        msg.addButton("Nem", QMessageBox::NoRole);
+        msg.exec();
+
+        if (msg.clickedButton() == yes)
+        {
+            DataBaseHandler::getDbManager()->updateHouseBills(ui->labelAddress->text(), ui->dateEdit->date(), std::move(update))
+                    ? QMessageBox::information(nullptr, "Módosítás", "Sikeres módosítás!")
+                    : QMessageBox::critical(nullptr, "Módosítás", "A módosítás során hiba történt!");
+        }
+    }
+}
+
+void ActivityHouse::on_pushButtonSaveInsurance_clicked()
+{
+    int cost = ui->spinBoxInsurance->valueFromText(ui->spinBoxInsurance->text());
+    if (cost > 0)
+    {
+        if (ui->labelWarnInsurance->isHidden())
+        {
+            DataBaseHandler::getDbManager()->insertHouseInsurance(ui->labelAddress->text(), ui->dateEditInsurance->date(), cost)
+                    ? QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!")
+                    : QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
+        }
+        else
+        {
+            QMessageBox msg;
+            msg.setWindowTitle("Módosítás");
+            msg.setText("Szeretné felülírni a korábbi biztosítási díjat?");
+            auto yes = msg.addButton("Igen", QMessageBox::YesRole);
+            msg.addButton("Nem", QMessageBox::NoRole);
+            msg.exec();
+
+            if (msg.clickedButton() == yes)
+            {
+                DataBaseHandler::getDbManager()->updateHouseInsurance(ui->labelAddress->text(), ui->dateEditInsurance->date(), cost)
+                        ? QMessageBox::information(nullptr, "Módosítás", "Sikeres módosítás!")
+                        : QMessageBox::critical(nullptr, "Módosítás", "A módosítás során hiba történt!");
+            }
+        }
+    }
 }
 

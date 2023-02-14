@@ -26,6 +26,8 @@ public:
     bool insertShoppingItem(QVector<QString> &&itemData) const;
     bool insertHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const;
     bool updateHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const;
+    bool insertHouseInsurance(const QString &house, const QDate &date, const int cost) const;
+    bool updateHouseInsurance(const QString &house, const QDate &date, const int cost) const;
 
 private:
     QSqlDatabase _db;

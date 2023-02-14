@@ -29,6 +29,8 @@ private slots:
 
     void on_pushButtonSaveBills_clicked();
 
+    void on_pushButtonSaveInsurance_clicked();
+
 private:
     Ui::ActivityHouse *ui;
     int _id;

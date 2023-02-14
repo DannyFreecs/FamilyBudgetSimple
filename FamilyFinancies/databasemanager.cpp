@@ -181,18 +181,15 @@ bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
 // Inserts the bills of a house (water, net, electricity, etc.)
 bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const
 {
-    QSqlQuery query;
-    query.prepare("SELECT id FROM Houses WHERE Address = :address;");
-    query.bindValue(":address", house);
-    if (!query.exec() || !query.next())
+    int houseID = getHouseId(house);
+    if (houseID == -1)
     {
         QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
         return false;
     }
 
-    int houseID = query.value(0).toInt();
-    query.clear();
-    query.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, HouseFK) VALUES(?, ?, ?, ?);");
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, HouseFK) VALUES(?, ?, ?, ?);");
     QVariantList costs;
     QVariantList dates;
     QVariantList types;
@@ -206,27 +203,23 @@ bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, 
         houseFK << houseID;
     }
 
-    query.addBindValue(costs);
-    query.addBindValue(dates);
-    query.addBindValue(types);
-    query.addBindValue(houseFK);
+    insertQuery.addBindValue(costs);
+    insertQuery.addBindValue(dates);
+    insertQuery.addBindValue(types);
+    insertQuery.addBindValue(houseFK);
 
-    return query.execBatch();
+    return insertQuery.execBatch();
 }
 
 // Modifies a bill that is already in the database
 bool DataBaseManager::updateHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int> > &&bills) const
 {
-    QSqlQuery houseQuery;
-    houseQuery.prepare("SELECT id FROM Houses WHERE Address = :address;");
-    houseQuery.bindValue(":address", house);
-    if (!houseQuery.exec() || !houseQuery.next())
+    int houseID = getHouseId(house);
+    if (houseID == -1)
     {
         QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
         return false;
     }
-
-    int houseID = houseQuery.value(0).toInt();
 
     QSqlQuery updateQuery;
     updateQuery.prepare("UPDATE Expenses SET Cost = ? WHERE id = ?;");
@@ -234,22 +227,65 @@ bool DataBaseManager::updateHouseBills(const QString &house, const QDate &date, 
     QVariantList costs;
     QVariantList ids;
 
-    QSqlQuery typeQuery;
-    typeQuery.prepare("SELECT id FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND strftime('%Y-%m', CreateDate) = :date;");
-    typeQuery.bindValue(":house", houseID);
-    typeQuery.bindValue(":date", date.toString("yyyy-MM"));
+    QSqlQuery idQuery;
+    idQuery.prepare("SELECT id FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND strftime('%Y-%m', CreateDate) = :date;");
+    idQuery.bindValue(":house", houseID);
+    idQuery.bindValue(":date", date.toString("yyyy-MM"));
 
     for(auto& bill : bills)
     {
-        typeQuery.bindValue(":type", getHouseExpenseId("Rezsi", std::move(bill.first)));
-        if (!typeQuery.exec() || !typeQuery.next()) return false;
+        idQuery.bindValue(":type", getHouseExpenseId("Rezsi", std::move(bill.first)));
+        if (!idQuery.exec() || !idQuery.next()) return false;
 
         costs << bill.second;
-        ids   << typeQuery.value(0).toInt();
+        ids   << idQuery.value(0).toInt();
     }
 
     updateQuery.addBindValue(costs);
     updateQuery.addBindValue(ids);
 
     return updateQuery.execBatch();
+}
+
+bool DataBaseManager::insertHouseInsurance(const QString &house, const QDate &date, const int cost) const
+{
+    int houseID = getHouseId(house);
+    if (houseID == -1)
+    {
+        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
+        return false;
+    }
+
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, HouseFK) VALUES(:cost, :date, :type, :house);");
+    insertQuery.bindValue(":cost", cost);
+    insertQuery.bindValue(":date", QDate(date.year(), 1, 1).toString("yyyy-MM-dd"));
+    insertQuery.bindValue(":type", getHouseExpenseId("Biztosítás"));
+    insertQuery.bindValue(":house", houseID);
+
+    return insertQuery.exec();
+}
+
+bool DataBaseManager::updateHouseInsurance(const QString &house, const QDate &date, const int cost) const
+{
+    int houseID = getHouseId(house);
+    if (houseID == -1)
+    {
+        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
+        return false;
+    }
+
+    QSqlQuery idQuery;
+    idQuery.prepare("SELECT id FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND strftime('%Y', CreateDate) = :date;");
+    idQuery.bindValue(":house", houseID);
+    idQuery.bindValue(":type", getHouseExpenseId("Biztosítás"));
+    idQuery.bindValue(":date", date.toString("yyyy"));
+    if (!idQuery.exec() || !idQuery.next()) return false;
+
+    QSqlQuery updateQuery;
+    updateQuery.prepare("UPDATE Expenses SET Cost = :cost WHERE id = :id;");
+    updateQuery.bindValue(":cost", cost);
+    updateQuery.bindValue(":id", idQuery.value(0).toInt());
+
+    return updateQuery.exec();
 }
