@@ -31,6 +31,8 @@ private slots:
 
     void on_pushButtonSaveInsurance_clicked();
 
+    void on_pushButtonSaveOther_clicked();
+
 private:
     Ui::ActivityHouse *ui;
     int _id;

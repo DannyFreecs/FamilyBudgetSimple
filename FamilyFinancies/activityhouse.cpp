@@ -183,3 +183,16 @@ void ActivityHouse::on_pushButtonSaveInsurance_clicked()
     }
 }
 
+void ActivityHouse::on_pushButtonSaveOther_clicked()
+{
+    QMap<QString, QString> expense;
+    expense.insert("cost", QString::number(ui->spinBoxOtherCost->valueFromText(ui->spinBoxOtherCost->text())));
+    expense.insert("date", ui->dateEditOtherCost->date().toString("yyyy-MM-dd"));
+    expense.insert("comment", ui->lineEditComment->text());
+
+    DataBaseHandler::getDbManager()->insertHouseOtherExpense(ui->labelAddress->text(), std::move(expense))
+            ? QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!")
+            : QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
+
+}
+

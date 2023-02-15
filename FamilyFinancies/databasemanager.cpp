@@ -46,20 +46,25 @@ int DataBaseManager::getHouseId(const QString &address) const
 }
 
 // Returns the id of a house related expense category
-int DataBaseManager::getHouseExpenseId(QString &&subCategory, QString &&subSubCategory) const
+int DataBaseManager::getCategoryId(QString &&category, QString &&subCategory, QString &&subSubCategory) const
 {
-    QSqlQuery query;
-    query.prepare(QString("SELECT id FROM Categories WHERE SubCategory = :sub") + QString(subSubCategory.isEmpty() ? ";" : " AND SubSubCategory = :subsub"));
-    query.bindValue(":sub", subCategory);
-    query.bindValue(":subsub", subSubCategory);
+    QSqlQuery categoryQuery;
+    QString query("SELECT id FROM Categories WHERE Category = '" + category + "'");
+    if (!subCategory.isEmpty()) query.append("AND SubCategory = '" + subCategory + "'");
+    if (!subSubCategory.isEmpty()) query.append("AND SubSubCategory = '" + subSubCategory + "'");
+    query.append(';');
 
-    return (query.exec() && query.next()) ? query.value(0).toInt() : -1;
+    categoryQuery.prepare(query);
+    categoryQuery.bindValue(":sub", subCategory);
+    categoryQuery.bindValue(":subsub", subSubCategory);
+
+    return (categoryQuery.exec() && categoryQuery.next()) ? categoryQuery.value(0).toInt() : -1;
 }
 
 // Check if a given house expense is already in the database with the correspoding date. (To see if the user wants to account again a month/year related expense)
 bool DataBaseManager::checkHouseExpenseExistence(const int houseId, const QDate &when, QString &&type, QString &&subType) const
 {
-    int expType{getHouseExpenseId(std::move(type), std::move(subType))};
+    int expType{getCategoryId("Ház", std::move(type), std::move(subType))};
     if (expType == -1) return false;
 
     QSqlQuery query;
@@ -199,7 +204,7 @@ bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, 
     {
         costs   << bill.second;
         dates   << date.toString("yyyy-MM-dd");
-        types   << getHouseExpenseId("Rezsi", std::move(bill.first));
+        types   << getCategoryId("Ház", "Rezsi", std::move(bill.first));
         houseFK << houseID;
     }
 
@@ -234,7 +239,7 @@ bool DataBaseManager::updateHouseBills(const QString &house, const QDate &date, 
 
     for(auto& bill : bills)
     {
-        idQuery.bindValue(":type", getHouseExpenseId("Rezsi", std::move(bill.first)));
+        idQuery.bindValue(":type", getCategoryId("Ház", "Rezsi", std::move(bill.first)));
         if (!idQuery.exec() || !idQuery.next()) return false;
 
         costs << bill.second;
@@ -260,7 +265,7 @@ bool DataBaseManager::insertHouseInsurance(const QString &house, const QDate &da
     insertQuery.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, HouseFK) VALUES(:cost, :date, :type, :house);");
     insertQuery.bindValue(":cost", cost);
     insertQuery.bindValue(":date", QDate(date.year(), 1, 1).toString("yyyy-MM-dd"));
-    insertQuery.bindValue(":type", getHouseExpenseId("Biztosítás"));
+    insertQuery.bindValue(":type", getCategoryId("Ház", "Biztosítás"));
     insertQuery.bindValue(":house", houseID);
 
     return insertQuery.exec();
@@ -278,7 +283,7 @@ bool DataBaseManager::updateHouseInsurance(const QString &house, const QDate &da
     QSqlQuery idQuery;
     idQuery.prepare("SELECT id FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND strftime('%Y', CreateDate) = :date;");
     idQuery.bindValue(":house", houseID);
-    idQuery.bindValue(":type", getHouseExpenseId("Biztosítás"));
+    idQuery.bindValue(":type", getCategoryId("Ház", "Biztosítás"));
     idQuery.bindValue(":date", date.toString("yyyy"));
     if (!idQuery.exec() || !idQuery.next()) return false;
 
@@ -288,4 +293,24 @@ bool DataBaseManager::updateHouseInsurance(const QString &house, const QDate &da
     updateQuery.bindValue(":id", idQuery.value(0).toInt());
 
     return updateQuery.exec();
+}
+
+bool DataBaseManager::insertHouseOtherExpense(const QString &house, QMap<QString, QString> &&item) const
+{
+    int houseID = getHouseId(house);
+    if (houseID == -1)
+    {
+        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
+        return false;
+    }
+
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType, HouseFK) VALUES(:cost, :comment, :date, :type, :house)");
+    insertQuery.bindValue(":cost", item["cost"].toInt());
+    insertQuery.bindValue(":comment", item["comment"]);
+    insertQuery.bindValue(":date", item["date"]);
+    insertQuery.bindValue(":type", getCategoryId("Ház", "Egyéb"));
+    insertQuery.bindValue(":house", houseID);
+
+    return insertQuery.exec();
 }

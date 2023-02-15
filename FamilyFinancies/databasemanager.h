@@ -12,9 +12,9 @@ public:
     DataBaseManager(QString&& dbpath);
 
     void connect();
+    int getCategoryId(QString &&category, QString &&subCategory = "", QString &&subSubCategory = "") const;
     QVector<QString> getHouses() const;
     int getHouseId(const QString &address) const;
-    int getHouseExpenseId(QString &&subCategory, QString &&subSubCategory = "") const;
     bool checkHouseExpenseExistence(const int houseId, const QDate &when, QString &&type, QString &&subType = "") const;
     QVector<QString> getCars() const;
     QVector<QString> getChildren() const;
@@ -28,6 +28,7 @@ public:
     bool updateHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const;
     bool insertHouseInsurance(const QString &house, const QDate &date, const int cost) const;
     bool updateHouseInsurance(const QString &house, const QDate &date, const int cost) const;
+    bool insertHouseOtherExpense(const QString &house, QMap<QString, QString> &&item) const;
 
 private:
     QSqlDatabase _db;
