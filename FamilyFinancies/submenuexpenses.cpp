@@ -99,7 +99,6 @@ void SubMenuExpenses::on_menuButtonShopping_clicked()
     ui->pushButtonShoppingItem->setHidden(!ui->pushButtonShoppingItem->isHidden());
 }
 
-
 void SubMenuExpenses::on_menuButtonHouses_clicked()
 {
     setFramesToDefaultStyle();
@@ -109,7 +108,6 @@ void SubMenuExpenses::on_menuButtonHouses_clicked()
     for (auto button : houseButtons) button->setHidden(!button->isHidden());
 }
 
-
 void SubMenuExpenses::on_menuButtonChildren_clicked()
 {
     setFramesToDefaultStyle();
@@ -118,7 +116,6 @@ void SubMenuExpenses::on_menuButtonChildren_clicked()
 
     for (auto button : childButtons) button->setHidden(!button->isHidden());
 }
-
 
 void SubMenuExpenses::on_menuButtonCars_clicked()
 {
@@ -182,14 +179,12 @@ void SubMenuExpenses::on_menuButtonCredits_clicked()
     setSubMenuButtonsToDefaultStyle();
 }
 
-
 void SubMenuExpenses::on_menuButtonHealthCare_clicked()
 {
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameHealthCare);
     setSubMenuButtonsToDefaultStyle();
 }
-
 
 void SubMenuExpenses::on_menuButtonOther_clicked()
 {
@@ -198,11 +193,9 @@ void SubMenuExpenses::on_menuButtonOther_clicked()
     setSubMenuButtonsToDefaultStyle();
 }
 
-
 void SubMenuExpenses::on_menuButtonPhone_clicked()
 {
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->framePhone);
     setSubMenuButtonsToDefaultStyle();
 }
-
