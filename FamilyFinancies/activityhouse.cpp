@@ -185,6 +185,12 @@ void ActivityHouse::on_pushButtonSaveInsurance_clicked()
 
 void ActivityHouse::on_pushButtonSaveOther_clicked()
 {
+    if (ui->spinBoxOtherCost->valueFromText(ui->spinBoxOtherCost->text()) < 1)
+    {
+        QMessageBox::warning(nullptr, "Mentés", "Az összeg mezőben 0 Ft szerepel!");
+        return;
+    }
+
     QMap<QString, QString> expense;
     expense.insert("cost", QString::number(ui->spinBoxOtherCost->valueFromText(ui->spinBoxOtherCost->text())));
     expense.insert("date", ui->dateEditOtherCost->date().toString("yyyy-MM-dd"));
