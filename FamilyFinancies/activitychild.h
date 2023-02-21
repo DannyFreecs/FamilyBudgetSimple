@@ -16,6 +16,12 @@ public:
     ActivityChild(const QString& child, QWidget *parent = nullptr);
     ~ActivityChild();
 
+private slots:
+    void on_pushButtonSaveStudies_clicked();
+
+private:
+    void initStudyCostField() const;
+
 private:
     Ui::ActivityChild *ui;
 };

@@ -1,5 +1,6 @@
 #include "activitychild.h"
 #include "ui_activitychild.h"
+#include "databasehandler.h"
 
 ActivityChild::ActivityChild(QWidget *parent) :
     QMainWindow(parent),
@@ -14,9 +15,23 @@ ActivityChild::ActivityChild(QWidget *parent) :
 ActivityChild::ActivityChild(const QString &child, QWidget *parent) : ActivityChild(parent)
 {
     ui->labelChildName->setText(child);
+    initStudyCostField();
 }
 
 ActivityChild::~ActivityChild()
 {
     delete ui;
 }
+
+void ActivityChild::initStudyCostField() const
+{
+    int lastCost = DataBaseHandler::getDbManager()->getChildStudyLastCost(ui->labelChildName->text());
+    if (lastCost < 1) return;
+    ui->spinBoxStudiesCost->setValue(lastCost);
+}
+
+void ActivityChild::on_pushButtonSaveStudies_clicked()
+{
+
+}
+
