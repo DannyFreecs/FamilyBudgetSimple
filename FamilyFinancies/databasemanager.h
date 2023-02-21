@@ -20,6 +20,8 @@ public:
     QVector<QString> getChildren() const;
     QMap<QString, QString> getShoppingCategories() const;
     QMap<QString, int> getHouseFixCosts() const;
+    int getChildId(const QString &child) const;
+    int getChildStudyLastCost(const QString &child) const;
 
 
     bool insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData) const;

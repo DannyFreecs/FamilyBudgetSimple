@@ -142,6 +142,31 @@ QMap<QString, int> DataBaseManager::getHouseFixCosts() const
     return fixCosts;
 }
 
+int DataBaseManager::getChildId(const QString &child) const
+{
+    QSqlQuery query;
+    query.prepare("Select id FROM Children WHERE Name = :name;");
+    query.bindValue(":name", child);
+
+    if (!query.exec() || !query.next()) return -1;
+
+    return query.value(0).toInt();
+}
+
+int DataBaseManager::getChildStudyLastCost(const QString &child) const
+{
+    int childID = getChildId(child);
+    int expType = getCategoryId("Gyerek", "Tanulmány");
+    QSqlQuery query;
+    query.prepare("Select Cost FROM Expenses WHERE ExpenseType = :type AND ChildFK = :child ORDER BY CreateDate DESC LIMIT 1;");
+    query.bindValue(":type", expType);
+    query.bindValue(":child", childID);
+
+    if (!query.exec() || !query.next()) return -1;
+
+    return query.value(0).toInt();
+}
+
 // Inserts records of a receipt into the database
 bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData) const
 {
