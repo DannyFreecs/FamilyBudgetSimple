@@ -676,6 +676,9 @@
              <property name="styleSheet">
               <string notr="true">background-color: rgb(173, 216, 230);</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
              <property name="displayFormat">
               <string>yyyy</string>
              </property>
@@ -801,6 +804,9 @@
                </property>
                <property name="locale">
                 <locale language="Hungarian" country="Hungary"/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
                <property name="displayFormat">
                 <string>yyyy.MMMM.dd</string>

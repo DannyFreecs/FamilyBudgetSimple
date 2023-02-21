@@ -111,6 +111,9 @@
         <property name="locale">
          <locale language="Hungarian" country="Hungary"/>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
         <property name="displayFormat">
          <string>yyyy.MMMM.dd</string>
         </property>
