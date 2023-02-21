@@ -35,7 +35,7 @@ QVector<QString> DataBaseManager::getHouses() const
 }
 
 // Returns the id of the house that has the same address as the parameter
-int DataBaseManager::getHouseId(const QString &address) const
+int DataBaseManager::getHouseId(QString &&address) const
 {
     QSqlQuery query;
     query.prepare("SELECT id FROM Houses WHERE Address = :address;");
@@ -62,8 +62,10 @@ int DataBaseManager::getCategoryId(QString &&category, QString &&subCategory, QS
 }
 
 // Check if a given house expense is already in the database with the correspoding date. (To see if the user wants to account again a month/year related expense)
-bool DataBaseManager::checkHouseExpenseExistence(const int houseId, const QDate &when, QString &&type, QString &&subType) const
+bool DataBaseManager::checkHouseExpenseExistence(QString&& house, const QDate &when, QString &&type, QString &&subType) const
 {
+    int houseID = getHouseId(std::move(house));
+    if (houseID == -1) return false;
     int expType{getCategoryId("Ház", std::move(type), std::move(subType))};
     if (expType == -1) return false;
 
@@ -71,7 +73,7 @@ bool DataBaseManager::checkHouseExpenseExistence(const int houseId, const QDate 
     // if insurance => use year else use year + month (bills)!
     QString dateFormat{expType == 13 ? "strftime('%Y', CreateDate)" : "strftime('%Y-%m', CreateDate)"};
     query.prepare("SELECT * FROM Expenses WHERE HouseFK = :house AND ExpenseType = :type AND " + dateFormat + " = :date;");
-    query.bindValue(":house", houseId);
+    query.bindValue(":house", houseID);
     query.bindValue(":type", expType);
     // if insurance => use year else use year + month (bills)!
     query.bindValue(":date", when.toString(expType == 13 ? "yyyy" : "yyyy-MM"));
@@ -126,17 +128,28 @@ QMap<QString, QString> DataBaseManager::getShoppingCategories() const
 }
 
 // Returns the fix house expenses (every year/month same cost as before)
-QMap<QString, int> DataBaseManager::getHouseFixCosts() const
+QMap<QString, int> DataBaseManager::getHouseLastFixCosts(QString &&address) const
 {
-    QMap<QString, int> fixCosts;;
+    int houseID = getHouseId(std::move(address));
+    QMap<QString, int> fixCosts;
 
-    QSqlQuery query;
-    query.exec("Select SubCategory, SubSubCategory, FixAmount FROM Categories WHERE Category = 'Ház' AND Fix = 1;");
+    QSqlQuery catQuery;
+    catQuery.exec("Select SubCategory, SubSubCategory FROM Categories WHERE Category = 'Ház' AND Fix = 1;");
 
-    while (query.next())
+    QSqlQuery lastCost;
+    lastCost.prepare("SELECT Cost FROM Expenses WHERE ExpenseType = :type AND HouseFK = :house ORDER BY CreateDate DESC LIMIT 1;");
+    while (catQuery.next())
     {
-        // if the SubSubCategory is NULL => This is the 'Insurance', else it is bill (water, gas, etc.)
-        fixCosts.insert(query.isNull(1) ? query.value(0).toString() : query.value(1).toString(), query.value(2).toInt());
+        lastCost.bindValue(":type", getCategoryId("Ház", catQuery.value(0).toString(), catQuery.isNull(1) ? "" : catQuery.value(1).toString()));
+        lastCost.bindValue(":house", houseID);
+
+        lastCost.exec();
+        lastCost.next();
+
+        // if the SubSubCategory is NULL => This is the 'Insurance', else it is a type of 'Bill' (water, gas, etc.)
+        fixCosts.insert(catQuery.isNull(1) ? catQuery.value(0).toString() : catQuery.value(1).toString(), lastCost.value(0).toInt());
+
+        lastCost.finish();
     }
 
     return fixCosts;
@@ -209,9 +222,9 @@ bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
 }
 
 // Inserts the bills of a house (water, net, electricity, etc.)
-bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const
+bool DataBaseManager::insertHouseBills(QString &&house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const
 {
-    int houseID = getHouseId(house);
+    int houseID = getHouseId(std::move(house));
     if (houseID == -1)
     {
         QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
@@ -242,9 +255,9 @@ bool DataBaseManager::insertHouseBills(const QString &house, const QDate &date, 
 }
 
 // Modifies a bill that is already in the database
-bool DataBaseManager::updateHouseBills(const QString &house, const QDate &date, QVector<std::pair<QString, int> > &&bills) const
+bool DataBaseManager::updateHouseBills(QString &&house, const QDate &date, QVector<std::pair<QString, int> > &&bills) const
 {
-    int houseID = getHouseId(house);
+    int houseID = getHouseId(std::move(house));
     if (houseID == -1)
     {
         QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
@@ -277,9 +290,9 @@ bool DataBaseManager::updateHouseBills(const QString &house, const QDate &date, 
     return updateQuery.execBatch();
 }
 
-bool DataBaseManager::insertHouseInsurance(const QString &house, const QDate &date, const int cost) const
+bool DataBaseManager::insertHouseInsurance(QString &&house, const QDate &date, const int cost) const
 {
-    int houseID = getHouseId(house);
+    int houseID = getHouseId(std::move(house));
     if (houseID == -1)
     {
         QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
@@ -296,9 +309,9 @@ bool DataBaseManager::insertHouseInsurance(const QString &house, const QDate &da
     return insertQuery.exec();
 }
 
-bool DataBaseManager::updateHouseInsurance(const QString &house, const QDate &date, const int cost) const
+bool DataBaseManager::updateHouseInsurance(QString &&house, const QDate &date, const int cost) const
 {
-    int houseID = getHouseId(house);
+    int houseID = getHouseId(std::move(house));
     if (houseID == -1)
     {
         QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
@@ -320,9 +333,9 @@ bool DataBaseManager::updateHouseInsurance(const QString &house, const QDate &da
     return updateQuery.exec();
 }
 
-bool DataBaseManager::insertHouseOtherExpense(const QString &house, QMap<QString, QString> &&item) const
+bool DataBaseManager::insertHouseOtherExpense(QString &&house, QMap<QString, QString> &&item) const
 {
-    int houseID = getHouseId(house);
+    int houseID = getHouseId(std::move(house));
     if (houseID == -1)
     {
         QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
