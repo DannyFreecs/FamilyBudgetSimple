@@ -108,8 +108,11 @@
         <property name="styleSheet">
          <string notr="true">background-color: rgb(173, 216, 230);</string>
         </property>
+        <property name="locale">
+         <locale language="Hungarian" country="Hungary"/>
+        </property>
         <property name="displayFormat">
-         <string>yyyy/MM/dd</string>
+         <string>yyyy.MMMM.dd</string>
         </property>
         <property name="calendarPopup">
          <bool>true</bool>
