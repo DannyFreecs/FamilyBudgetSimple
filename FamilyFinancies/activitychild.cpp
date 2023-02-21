@@ -40,13 +40,22 @@ void ActivityChild::on_pushButtonSaveStudies_clicked()
         return;
     }
 
-    if (DataBaseHandler::getDbManager()->insertChildStudyExpense(ui->labelChildName->text(), ui->dateEditStudies->date(), cost))
+    DataBaseHandler::getDbManager()->insertChildExpense(ui->labelChildName->text(), ui->dateEditStudies->date(), cost, "Tanulmány")
+            ? QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!")
+            : QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
+}
+
+void ActivityChild::on_pushButtonSaveOther_clicked()
+{
+    const int cost = ui->spinBoxOtherCost->valueFromText(ui->spinBoxOtherCost->text());
+    if (cost < 1)
     {
-        QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!");
+        QMessageBox::warning(nullptr, "Mentés", "Az összeg mezőben 0 Ft szerepel!");
+        return;
     }
-    else
-    {
-        QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
-    }
+
+    DataBaseHandler::getDbManager()->insertChildExpense(ui->labelChildName->text(), ui->dateEditOther->date(), cost, "Egyéb", ui->lineEditComment->text())
+            ? QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!")
+            : QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
 }
 

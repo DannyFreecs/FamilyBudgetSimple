@@ -31,7 +31,7 @@ public:
     bool insertHouseInsurance(QString &&house, const QDate &date, const int cost) const;
     bool updateHouseInsurance(QString &&house, const QDate &date, const int cost) const;
     bool insertHouseOtherExpense(QString &&house, QMap<QString, QString> &&item) const;
-    bool insertChildStudyExpense(QString &&child, QDate &&date, const int cost) const;
+    bool insertChildExpense(QString &&child, QDate &&date, const int cost, QString &&category, QString &&comment="") const;
 
 private:
     QSqlDatabase _db;

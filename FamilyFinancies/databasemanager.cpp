@@ -356,7 +356,7 @@ bool DataBaseManager::insertHouseOtherExpense(QString &&house, QMap<QString, QSt
     return insertQuery.exec();
 }
 
-bool DataBaseManager::insertChildStudyExpense(QString &&child, QDate &&date, const int cost) const
+bool DataBaseManager::insertChildExpense(QString &&child, QDate &&date, const int cost, QString &&category, QString &&comment) const
 {
     int childID = getChildId(std::move(child));
     if (childID == -1)
@@ -365,11 +365,13 @@ bool DataBaseManager::insertChildStudyExpense(QString &&child, QDate &&date, con
         return false;
     }
 
-    QSqlQuery insertQuery;
+    QSqlQuery insertQuery(comment.isEmpty() ? "INSERT INTO Expenses(Cost, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :date, :type, :child);"
+                                            : "INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :comment, :date, :type, :child);");
     insertQuery.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :comment, :date, :type, :child);");
     insertQuery.bindValue(":cost", cost);
+    if (!comment.isEmpty()) insertQuery.bindValue(":comment", comment);
     insertQuery.bindValue(":date", date.toString("yyyy-MM-dd"));
-    insertQuery.bindValue(":type", getCategoryId("Gyerek", "Tanulmány"));
+    insertQuery.bindValue(":type", getCategoryId("Gyerek", std::move(category)));
     insertQuery.bindValue(":child", childID);
 
     return insertQuery.exec();
