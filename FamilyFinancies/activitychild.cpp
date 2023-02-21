@@ -1,4 +1,5 @@
 #include "activitychild.h"
+#include <QMessageBox>
 #include "ui_activitychild.h"
 #include "databasehandler.h"
 
@@ -25,13 +26,27 @@ ActivityChild::~ActivityChild()
 
 void ActivityChild::initStudyCostField() const
 {
-    int lastCost = DataBaseHandler::getDbManager()->getChildStudyLastCost(ui->labelChildName->text());
+    const int lastCost = DataBaseHandler::getDbManager()->getChildStudyLastCost(ui->labelChildName->text());
     if (lastCost < 1) return;
     ui->spinBoxStudiesCost->setValue(lastCost);
 }
 
 void ActivityChild::on_pushButtonSaveStudies_clicked()
 {
+    const int cost = ui->spinBoxStudiesCost->valueFromText(ui->spinBoxStudiesCost->text());
+    if (cost < 1)
+    {
+        QMessageBox::warning(nullptr, "Mentés", "Az összeg mezőben 0 Ft szerepel!");
+        return;
+    }
 
+    if (DataBaseHandler::getDbManager()->insertChildStudyExpense(ui->labelChildName->text(), ui->dateEditStudies->date(), cost))
+    {
+        QMessageBox::information(nullptr, "Mentés", "Sikeres mentés!");
+    }
+    else
+    {
+        QMessageBox::critical(nullptr, "Mentés", "A mentés során hiba történt!");
+    }
 }
 

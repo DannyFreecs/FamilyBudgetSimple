@@ -143,8 +143,11 @@ QMap<QString, int> DataBaseManager::getHouseLastFixCosts(QString &&address) cons
         lastCost.bindValue(":type", getCategoryId("Ház", catQuery.value(0).toString(), catQuery.isNull(1) ? "" : catQuery.value(1).toString()));
         lastCost.bindValue(":house", houseID);
 
-        lastCost.exec();
-        lastCost.next();
+        if (!lastCost.exec() || !lastCost.next())
+        {
+            QMessageBox::critical(nullptr, "Hiba", "Valami hiba történt a legutolsó házat érintő kiadások kigyűjtésekor");
+            break;
+        }
 
         // if the SubSubCategory is NULL => This is the 'Insurance', else it is a type of 'Bill' (water, gas, etc.)
         fixCosts.insert(catQuery.isNull(1) ? catQuery.value(0).toString() : catQuery.value(1).toString(), lastCost.value(0).toInt());
@@ -338,17 +341,36 @@ bool DataBaseManager::insertHouseOtherExpense(QString &&house, QMap<QString, QSt
     int houseID = getHouseId(std::move(house));
     if (houseID == -1)
     {
-        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat elérni az adatbázisban!");
+        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a házat megtalálni az adatbázisban!");
         return false;
     }
 
     QSqlQuery insertQuery;
-    insertQuery.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType, HouseFK) VALUES(:cost, :comment, :date, :type, :house)");
+    insertQuery.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType, HouseFK) VALUES(:cost, :comment, :date, :type, :house);");
     insertQuery.bindValue(":cost", item["cost"].toInt());
     insertQuery.bindValue(":comment", item["comment"]);
     insertQuery.bindValue(":date", item["date"]);
     insertQuery.bindValue(":type", getCategoryId("Ház", "Egyéb"));
     insertQuery.bindValue(":house", houseID);
+
+    return insertQuery.exec();
+}
+
+bool DataBaseManager::insertChildStudyExpense(QString &&child, QDate &&date, const int cost) const
+{
+    int childID = getChildId(std::move(child));
+    if (childID == -1)
+    {
+        QMessageBox::critical(nullptr, "Hiba", "Nem sikerült a gyereket megtalálni az adatbázisban!");
+        return false;
+    }
+
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :comment, :date, :type, :child);");
+    insertQuery.bindValue(":cost", cost);
+    insertQuery.bindValue(":date", date.toString("yyyy-MM-dd"));
+    insertQuery.bindValue(":type", getCategoryId("Gyerek", "Tanulmány"));
+    insertQuery.bindValue(":child", childID);
 
     return insertQuery.exec();
 }
