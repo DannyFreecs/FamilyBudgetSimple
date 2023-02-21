@@ -135,6 +135,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item alignment="Qt::AlignTop">
        <widget class="QLabel" name="labelComment">
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Leírás:</string>
         </property>

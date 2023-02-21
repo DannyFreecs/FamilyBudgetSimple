@@ -155,6 +155,8 @@ void SubMenuExpenses::onSubMenuChildButtonClicked()
     setFrameToSelectedStyle(ui->frameChildren);
     setSubMenuButtonsToDefaultStyle();
     setSubMenuButtonToSelectedStyle(qobject_cast<QPushButton*>(QObject::sender()));
+
+    emit sendCreateActivityChild(qobject_cast<QPushButton*>(QObject::sender())->text());
 }
 
 void SubMenuExpenses::onSubMenuCarButtonClicked()

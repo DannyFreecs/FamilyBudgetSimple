@@ -12,6 +12,7 @@
 #include "activityreceipt.h"
 #include "activityshoppingitem.h"
 #include "activityhouse.h"
+#include "activitychild.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,6 +36,7 @@ private slots:
     void onCreateActivityReceipt();
     void onCreateActivityShoppingItem();
     void onCreateActivityHouse(const QString &house);
+    void onCreateActivityChild(const QString &child);
     void on_menuButtonExpenses_clicked();
     void on_actionAddReceipt_triggered();
     void on_actionAddItem_triggered();
@@ -47,5 +49,6 @@ private:
     std::unique_ptr<ActivityReceipt> _activityReceipt;
     std::unique_ptr<ActivityShoppingItem> _activityShoppingItem;
     std::unique_ptr<ActivityHouse> _activityHouse;
+    std::unique_ptr<ActivityChild> _activityChild;
 };
 #endif // MAINWINDOW_H

@@ -37,6 +37,9 @@ set(PROJECT_SOURCES
         activityhouse.ui
         yearmonthchooser.h
         yearmonthchooser.cpp
+        activitychild.h
+        activitychild.cpp
+        activitychild.ui
         resources.qrc
 )
 
