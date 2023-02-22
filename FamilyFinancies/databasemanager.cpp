@@ -388,3 +388,17 @@ bool DataBaseManager::insertChildExpense(QString &&child, QDate &&date, const in
 
     return insertQuery.exec();
 }
+
+bool DataBaseManager::insertMedicalExpense(const int cost, QDate &&date, QString &&comment) const
+{
+    QString query(comment.isEmpty() ? "INSERT INTO Expenses(Cost, CreateDate, ExpenseType) VALUES(:cost, :created, :type);"
+                                    : "INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(:cost, :comment, :created, :type);");
+    QSqlQuery insertQuery;
+    insertQuery.prepare(query);
+    insertQuery.bindValue(":cost", cost);
+    if (!comment.isEmpty()) insertQuery.bindValue(":comment", comment);
+    insertQuery.bindValue(":created", date.toString("yyyy-MM-dd"));
+    insertQuery.bindValue(":type", getCategoryId("Orvos"));
+
+    return insertQuery.exec();
+}

@@ -15,6 +15,9 @@ public:
     explicit ActivityMedical(QWidget *parent = nullptr);
     ~ActivityMedical();
 
+private slots:
+    void on_pushButtonSave_clicked();
+
 private:
     Ui::ActivityMedical *ui;
 };
