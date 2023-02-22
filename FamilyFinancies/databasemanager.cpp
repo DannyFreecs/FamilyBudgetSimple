@@ -223,17 +223,18 @@ bool DataBaseManager::insertShoppingReceipt(QVector<QVector<QString>> &&shopping
 }
 
 // Inserts 1 shopping relatzed expense into the database
-bool DataBaseManager::insertShoppingItem(QVector<QString> &&itemData) const
+bool DataBaseManager::insertShoppingItem(const int cost, QDate &&date, QString &&category, QString &&comment) const
 {
-    QSqlQuery query;
+    QString query(comment.isEmpty() ? "INSERT INTO Expenses(Cost, CreateDate, ExpenseType) VALUES(:cost, :created, :type);"
+                                    : "INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(:cost, :comment, :created, :type);");
+    QSqlQuery insertQuery;
+    insertQuery.prepare(query);
+    insertQuery.bindValue(":cost", cost);
+    if (!comment.isEmpty()) insertQuery.bindValue(":comment", comment);
+    insertQuery.bindValue(":created", date.toString("yyyy-MM-dd"));
+    insertQuery.bindValue(":type", getCategoryId(std::move(category)));
 
-    query.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(:cost, :comment, :created, :type);");
-    query.bindValue(":cost", itemData[0].toInt());
-    query.bindValue(":comment", itemData[1]);
-    query.bindValue(":created", itemData[2]);
-    query.bindValue(":type", itemData[3].toInt());
-
-    return query.exec();
+    return insertQuery.exec();
 }
 
 // Inserts the bills of a house (water, net, electricity, etc.)

@@ -26,7 +26,7 @@ public:
 
 
     bool insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData) const;
-    bool insertShoppingItem(QVector<QString> &&itemData) const;
+    bool insertShoppingItem(const int cost, QDate &&date, QString &&category, QString &&comment) const;
     bool insertHouseBills(QString &&house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const;
     bool updateHouseBills(QString &&house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const;
     bool insertHouseInsurance(QString &&house, const QDate &date, const int cost) const;
