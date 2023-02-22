@@ -16,6 +16,7 @@ public:
     QVector<QString> getHouses() const;
     int getHouseId(QString &&address) const;
     bool checkHouseExpenseExistence(QString &&house, const QDate &when, QString &&type, QString &&subType = "") const;
+    bool checkChildStudyExpenseExistence(QString &&child, QDate &&when) const;
     QVector<QString> getCars() const;
     QVector<QString> getChildren() const;
     QMap<QString, QString> getShoppingCategories() const;

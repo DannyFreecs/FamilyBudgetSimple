@@ -81,6 +81,18 @@ bool DataBaseManager::checkHouseExpenseExistence(QString&& house, const QDate &w
     return query.exec() && query.next();
 }
 
+bool DataBaseManager::checkChildStudyExpenseExistence(QString &&child, QDate &&when) const
+{
+    int childID = getChildId(std::move(child));
+    if (childID == -1) return false;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM Expenses WHERE ChildFK = :child AND strftime('%Y-%m', CreateDate) = :date;");
+    query.bindValue(":child", childID);
+    query.bindValue(":date", when.toString("yyyy-MM"));
+
+    return query.exec() && query.next();
+}
+
 // Returns the cars from the database
 QVector<QString> DataBaseManager::getCars() const
 {

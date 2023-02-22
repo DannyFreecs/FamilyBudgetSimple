@@ -22,8 +22,9 @@
      <widget class="QLabel" name="labelChildName">
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>18</pointsize>
         <bold>true</bold>
+        <underline>true</underline>
        </font>
       </property>
       <property name="text">
@@ -95,6 +96,28 @@
            </property>
            <property name="maximum">
             <number>999999999</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelWarnStudyCost">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A tétel már szerepel az adatbázisban a megadott hónapban! Felülírásra kerül az új értékkel!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="resources.qrc">:/icons/Resources/Yellow Triangle Warning.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -292,6 +315,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QLabel" name="labelComment">
+           <property name="minimumSize">
+            <size>
+             <width>42</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <bold>true</bold>
@@ -368,6 +397,8 @@
    <header>c:/Users/Dani/Qt-source/FamilyFinancies/FamilyFinancies/currencyspinbox.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

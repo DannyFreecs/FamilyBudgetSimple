@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include "ui_activitychild.h"
 #include "databasehandler.h"
+#include "yearmonthchooser.h"
 
 ActivityChild::ActivityChild(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,7 @@ ActivityChild::ActivityChild(QWidget *parent) :
     ui->setupUi(this);
 
     ui->dateEditStudies->setDate(QDate::currentDate());
+    ui->dateEditStudies->setCalendarWidget(new YearMonthChooser);
     ui->dateEditOther->setDate(QDate::currentDate());
 }
 
@@ -17,6 +19,9 @@ ActivityChild::ActivityChild(const QString &child, QWidget *parent) : ActivityCh
 {
     ui->labelChildName->setText(child);
     initStudyCostField();
+
+    connect(ui->dateEditStudies, &QDateEdit::dateChanged, this, &ActivityChild::checkStudyExpenseExistence);
+    connect(ui->spinBoxStudiesCost, &QAbstractSpinBox::editingFinished, this, &ActivityChild::checkStudyExpenseExistence);
 }
 
 ActivityChild::~ActivityChild()
@@ -29,6 +34,12 @@ void ActivityChild::initStudyCostField() const
     const int lastCost = DataBaseHandler::getDbManager()->getChildStudyLastCost(ui->labelChildName->text());
     if (lastCost < 1) return;
     ui->spinBoxStudiesCost->setValue(lastCost);
+}
+
+void ActivityChild::checkStudyExpenseExistence() const
+{
+    ui->labelWarnStudyCost->setHidden(!(DataBaseHandler::getDbManager()->checkChildStudyExpenseExistence(ui->labelChildName->text(), ui->dateEditStudies->date())
+                                  && ui->spinBoxStudiesCost->valueFromText(ui->spinBoxStudiesCost->text()) > 0));
 }
 
 void ActivityChild::on_pushButtonSaveStudies_clicked()

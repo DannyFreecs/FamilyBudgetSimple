@@ -18,8 +18,8 @@ public:
 
 private slots:
     void on_pushButtonSaveStudies_clicked();
-
     void on_pushButtonSaveOther_clicked();
+    void checkStudyExpenseExistence() const;
 
 private:
     void initStudyCostField() const;
