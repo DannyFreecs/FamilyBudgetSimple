@@ -190,6 +190,8 @@ void SubMenuExpenses::on_menuButtonHealthCare_clicked()
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameHealthCare);
     setSubMenuButtonsToDefaultStyle();
+
+    emit sendCreateActivityMedical();
 }
 
 

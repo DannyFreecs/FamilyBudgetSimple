@@ -32,6 +32,7 @@ void MainWindow::releaseActivites()
     _activityShoppingItem.release();
     _activityHouse.release();
     _activityChild.release();
+    _activityMedical.release();
 }
 
 void MainWindow::setMenuButtonsToDefaultStyle()
@@ -82,6 +83,18 @@ void MainWindow::onCreateActivityChild(const QString &child)
     _activityChild->showMaximized();
 }
 
+void MainWindow::onCreateActivityMedical()
+{
+    /******RELEASE******/
+    releaseActivites();
+    /************/
+
+    _activityMedical = std::make_unique<ActivityMedical>();
+    ui->mdiAreaActivity->closeAllSubWindows();
+    ui->mdiAreaActivity->addSubWindow(_activityMedical.get(), Qt::FramelessWindowHint);
+    _activityMedical->showMaximized();
+}
+
 void MainWindow::on_menuButtonExpenses_clicked()
 {
     setMenuButtonsToDefaultStyle();
@@ -94,6 +107,7 @@ void MainWindow::on_menuButtonExpenses_clicked()
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityShoppingItem, this, &MainWindow::onCreateActivityShoppingItem);
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityHouse, this, &MainWindow::onCreateActivityHouse);
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityChild, this, &MainWindow::onCreateActivityChild);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityMedical, this, &MainWindow::onCreateActivityMedical);
 }
 
 void MainWindow::on_actionAddReceipt_triggered()

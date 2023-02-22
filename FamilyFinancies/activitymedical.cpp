@@ -6,6 +6,7 @@ ActivityMedical::ActivityMedical(QWidget *parent) :
     ui(new Ui::ActivityMedical)
 {
     ui->setupUi(this);
+    ui->dateEdit->setDate(QDate::currentDate());
 }
 
 ActivityMedical::~ActivityMedical()
