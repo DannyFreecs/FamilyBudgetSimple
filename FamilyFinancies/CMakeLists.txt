@@ -40,6 +40,9 @@ set(PROJECT_SOURCES
         activitychild.h
         activitychild.cpp
         activitychild.ui
+        activitymedical.h
+        activitymedical.cpp
+        activitymedical.ui
         resources.qrc
 )
 
