@@ -2,6 +2,7 @@
 #include "ui_activitymedical.h"
 #include <QMessageBox>
 #include "databasehandler.h"
+#include <QTabBar>
 
 ActivityMedical::ActivityMedical(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +10,11 @@ ActivityMedical::ActivityMedical(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->dateEdit->setDate(QDate::currentDate());
+
+    auto tabBar = ui->tabWidget->findChild<QTabBar*>();
+    auto asd = tabBar->findChildren<QWidget*>();
+
+    int x = 7;
 }
 
 ActivityMedical::~ActivityMedical()
