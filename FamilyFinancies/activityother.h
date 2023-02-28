@@ -15,6 +15,9 @@ public:
     explicit ActivityOther(QWidget *parent = nullptr);
     ~ActivityOther();
 
+private slots:
+    void on_pushButtonSave_clicked();
+
 private:
     Ui::ActivityOther *ui;
 };

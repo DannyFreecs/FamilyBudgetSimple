@@ -157,12 +157,14 @@ QMap<QString, int> DataBaseManager::getHouseLastFixCosts(QString &&address) cons
 
         if (!lastCost.exec() || !lastCost.next())
         {
-            QMessageBox::critical(nullptr, "Hiba", "Valami hiba történt a legutolsó házat érintő kiadások kigyűjtésekor");
-            break;
+            QString expense(catQuery.isNull(1) ? catQuery.value(0).toString() : catQuery.value(1).toString());
+            QMessageBox::information(nullptr, "Információ", "A legutolsó " + expense + " díj nem található!" );
         }
-
-        // if the SubSubCategory is NULL => This is the 'Insurance', else it is a type of 'Bill' (water, gas, etc.)
-        fixCosts.insert(catQuery.isNull(1) ? catQuery.value(0).toString() : catQuery.value(1).toString(), lastCost.value(0).toInt());
+        else
+        {
+            // if the SubSubCategory is NULL => This is the 'Insurance', else it is a type of 'Bill' (water, gas, etc.)
+            fixCosts.insert(catQuery.isNull(1) ? catQuery.value(0).toString() : catQuery.value(1).toString(), lastCost.value(0).toInt());
+        }
 
         lastCost.finish();
     }
@@ -378,11 +380,10 @@ bool DataBaseManager::insertChildExpense(QString &&child, QDate &&date, const in
         return false;
     }
 
-    QSqlQuery insertQuery(comment.isEmpty() ? "INSERT INTO Expenses(Cost, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :date, :type, :child);"
-                                            : "INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :comment, :date, :type, :child);");
-    insertQuery.prepare("INSERT INTO Expenses(Cost, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :comment, :date, :type, :child);");
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType, ChildFK) VALUES(:cost, :comment, :date, :type, :child);");
     insertQuery.bindValue(":cost", cost);
-    if (!comment.isEmpty()) insertQuery.bindValue(":comment", comment);
+    insertQuery.bindValue(":comment", comment);
     insertQuery.bindValue(":date", date.toString("yyyy-MM-dd"));
     insertQuery.bindValue(":type", getCategoryId("Gyerek", std::move(category)));
     insertQuery.bindValue(":child", childID);
@@ -392,14 +393,24 @@ bool DataBaseManager::insertChildExpense(QString &&child, QDate &&date, const in
 
 bool DataBaseManager::insertMedicalExpense(const int cost, QDate &&date, QString &&comment) const
 {
-    QString query(comment.isEmpty() ? "INSERT INTO Expenses(Cost, CreateDate, ExpenseType) VALUES(:cost, :created, :type);"
-                                    : "INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(:cost, :comment, :created, :type);");
     QSqlQuery insertQuery;
-    insertQuery.prepare(query);
+    insertQuery.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(:cost, :comment, :created, :type);");
     insertQuery.bindValue(":cost", cost);
-    if (!comment.isEmpty()) insertQuery.bindValue(":comment", comment);
+    insertQuery.bindValue(":comment", comment);
     insertQuery.bindValue(":created", date.toString("yyyy-MM-dd"));
     insertQuery.bindValue(":type", getCategoryId("Orvos"));
+
+    return insertQuery.exec();
+}
+
+bool DataBaseManager::insertOtherExpense(const int cost, QDate &&date, QString &&comment) const
+{
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO Expenses(Cost, Comment, CreateDate, ExpenseType) VALUES(:cost, :comment, :created, :type);");
+    insertQuery.bindValue(":cost", cost);
+    insertQuery.bindValue(":comment", comment);
+    insertQuery.bindValue(":created", date.toString("yyyy-MM-dd"));
+    insertQuery.bindValue(":type", getCategoryId("Egyéb"));
 
     return insertQuery.exec();
 }

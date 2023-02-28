@@ -34,6 +34,7 @@ public:
     bool insertHouseOtherExpense(QString &&house, QMap<QString, QString> &&item) const;
     bool insertChildExpense(QString &&child, QDate &&date, const int cost, QString &&category, QString &&comment="") const;
     bool insertMedicalExpense(const int cost, QDate &&date, QString &&comment) const;
+    bool insertOtherExpense(const int cost, QDate &&date, QString &&comment) const;
 
 private:
     QSqlDatabase _db;

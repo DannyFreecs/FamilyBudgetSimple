@@ -33,6 +33,7 @@ void MainWindow::releaseActivites()
     _activityHouse.release();
     _activityChild.release();
     _activityMedical.release();
+    _activityOther.release();
 }
 
 void MainWindow::setMenuButtonsToDefaultStyle()
@@ -95,6 +96,18 @@ void MainWindow::onCreateActivityMedical()
     _activityMedical->showMaximized();
 }
 
+void MainWindow::onCreateActivityOther()
+{
+    /******RELEASE******/
+    releaseActivites();
+    /************/
+
+    _activityOther = std::make_unique<ActivityOther>();
+    ui->mdiAreaActivity->closeAllSubWindows();
+    ui->mdiAreaActivity->addSubWindow(_activityOther.get(), Qt::FramelessWindowHint);
+    _activityOther->showMaximized();
+}
+
 void MainWindow::on_menuButtonExpenses_clicked()
 {
     setMenuButtonsToDefaultStyle();
@@ -108,6 +121,7 @@ void MainWindow::on_menuButtonExpenses_clicked()
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityHouse, this, &MainWindow::onCreateActivityHouse);
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityChild, this, &MainWindow::onCreateActivityChild);
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityMedical, this, &MainWindow::onCreateActivityMedical);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityOther, this, &MainWindow::onCreateActivityOther);
 }
 
 void MainWindow::on_actionAddReceipt_triggered()

@@ -200,6 +200,8 @@ void SubMenuExpenses::on_menuButtonOther_clicked()
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameOthers);
     setSubMenuButtonsToDefaultStyle();
+
+    emit sendCreateActivityOther();
 }
 
 

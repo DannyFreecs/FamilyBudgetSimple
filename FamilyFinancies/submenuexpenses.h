@@ -31,6 +31,7 @@ signals:
     void sendCreateActivityHouse(const QString &house);
     void sendCreateActivityChild(const QString &child);
     void sendCreateActivityMedical();
+    void sendCreateActivityOther();
 
 private slots:
     void on_menuButtonShopping_clicked();
