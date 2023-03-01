@@ -35,7 +35,6 @@ private slots:
 
 private:
     Ui::ActivityHouse *ui;
-    int _id;
     QMap<QString, int> _fixCosts;
 };
 

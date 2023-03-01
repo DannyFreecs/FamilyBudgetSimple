@@ -23,7 +23,6 @@ ActivityHouse::ActivityHouse(QWidget *parent) :
 ActivityHouse::ActivityHouse(const QString& house, QWidget *parent) : ActivityHouse(parent)
 {
     ui->labelAddress->setText(house);
-    _id = DataBaseHandler::getDbManager()->getHouseId(house);
     setFixCosts();
 
     connect(ui->dateEdit, &QDateEdit::dateChanged, this, &ActivityHouse::checkHouseExpenseExistences);
@@ -44,7 +43,7 @@ ActivityHouse::~ActivityHouse()
 
 void ActivityHouse::setFixCosts()
 {
-    _fixCosts = DataBaseHandler::getDbManager()->getHouseFixCosts();
+    _fixCosts = DataBaseHandler::getDbManager()->getHouseLastFixCosts(ui->labelAddress->text());
 
     ui->spinBoxGasBill->setValue(_fixCosts["Gáz"]);
     ui->spinBoxInternetBill->setValue(_fixCosts["Internet"]);
@@ -54,22 +53,22 @@ void ActivityHouse::setFixCosts()
 
 void ActivityHouse::checkHouseExpenseExistences()
 {
-    ui->labelWarnWater->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Víz")
+    ui->labelWarnWater->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(ui->labelAddress->text(), ui->dateEdit->date(), "Rezsi", "Víz")
                                   && ui->spinBoxWaterBill->valueFromText(ui->spinBoxWaterBill->text()) > 0));
 
-    ui->labelWarnElectricity->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Villany")
+    ui->labelWarnElectricity->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(ui->labelAddress->text(), ui->dateEdit->date(), "Rezsi", "Villany")
                                             && ui->spinBoxElectricityBill->valueFromText(ui->spinBoxElectricityBill->text()) > 0));
 
-    ui->labelWarnGas->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Gáz")
+    ui->labelWarnGas->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(ui->labelAddress->text(), ui->dateEdit->date(), "Rezsi", "Gáz")
                                 && ui->spinBoxGasBill->valueFromText(ui->spinBoxGasBill->text()) > 0));
 
-    ui->labelWarnCommon->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Közös költség")
+    ui->labelWarnCommon->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(ui->labelAddress->text(), ui->dateEdit->date(), "Rezsi", "Közös költség")
                                    && ui->spinBoxCommonBill->valueFromText(ui->spinBoxCommonBill->text()) > 0));
 
-    ui->labelWarnInternet->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEdit->date(), "Rezsi", "Internet")
+    ui->labelWarnInternet->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(ui->labelAddress->text(), ui->dateEdit->date(), "Rezsi", "Internet")
                                      && ui->spinBoxInternetBill->valueFromText(ui->spinBoxInternetBill->text()) > 0));
 
-    ui->labelWarnInsurance->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(_id, ui->dateEditInsurance->date(), "Biztosítás")
+    ui->labelWarnInsurance->setHidden(!(DataBaseHandler::getDbManager()->checkHouseExpenseExistence(ui->labelAddress->text(), ui->dateEditInsurance->date(), "Biztosítás")
                                         && ui->spinBoxInsurance->valueFromText(ui->spinBoxInsurance->text()) > 0));
 }
 
@@ -185,6 +184,12 @@ void ActivityHouse::on_pushButtonSaveInsurance_clicked()
 
 void ActivityHouse::on_pushButtonSaveOther_clicked()
 {
+    if (ui->spinBoxOtherCost->valueFromText(ui->spinBoxOtherCost->text()) < 1)
+    {
+        QMessageBox::warning(nullptr, "Mentés", "Az összeg mezőben 0 Ft szerepel!");
+        return;
+    }
+
     QMap<QString, QString> expense;
     expense.insert("cost", QString::number(ui->spinBoxOtherCost->valueFromText(ui->spinBoxOtherCost->text())));
     expense.insert("date", ui->dateEditOtherCost->date().toString("yyyy-MM-dd"));

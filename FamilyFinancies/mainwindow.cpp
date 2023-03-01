@@ -31,6 +31,9 @@ void MainWindow::releaseActivites()
     _activityReceipt.release();
     _activityShoppingItem.release();
     _activityHouse.release();
+    _activityChild.release();
+    _activityMedical.release();
+    _activityOther.release();
 }
 
 void MainWindow::setMenuButtonsToDefaultStyle()
@@ -69,6 +72,41 @@ void MainWindow::onCreateActivityHouse(const QString &house)
     _activityHouse->showMaximized();
 }
 
+void MainWindow::onCreateActivityChild(const QString &child)
+{
+    /******RELEASE******/
+    releaseActivites();
+    /************/
+
+    _activityChild = std::make_unique<ActivityChild>(child);
+    ui->mdiAreaActivity->closeAllSubWindows();
+    ui->mdiAreaActivity->addSubWindow(_activityChild.get(), Qt::FramelessWindowHint);
+    _activityChild->showMaximized();
+}
+
+void MainWindow::onCreateActivityMedical()
+{
+    /******RELEASE******/
+    releaseActivites();
+    /************/
+
+    _activityMedical = std::make_unique<ActivityMedical>();
+    ui->mdiAreaActivity->closeAllSubWindows();
+    ui->mdiAreaActivity->addSubWindow(_activityMedical.get(), Qt::FramelessWindowHint);
+    _activityMedical->showMaximized();
+}
+
+void MainWindow::onCreateActivityOther()
+{
+    /******RELEASE******/
+    releaseActivites();
+    /************/
+
+    _activityOther = std::make_unique<ActivityOther>();
+    ui->mdiAreaActivity->closeAllSubWindows();
+    ui->mdiAreaActivity->addSubWindow(_activityOther.get(), Qt::FramelessWindowHint);
+    _activityOther->showMaximized();
+}
 
 void MainWindow::on_menuButtonExpenses_clicked()
 {
@@ -81,6 +119,9 @@ void MainWindow::on_menuButtonExpenses_clicked()
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityReceipt, this, &MainWindow::onCreateActivityReceipt);
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityShoppingItem, this, &MainWindow::onCreateActivityShoppingItem);
     connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityHouse, this, &MainWindow::onCreateActivityHouse);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityChild, this, &MainWindow::onCreateActivityChild);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityMedical, this, &MainWindow::onCreateActivityMedical);
+    connect(_subMenuExpenses.get(), &SubMenuExpenses::sendCreateActivityOther, this, &MainWindow::onCreateActivityOther);
 }
 
 void MainWindow::on_actionAddReceipt_triggered()

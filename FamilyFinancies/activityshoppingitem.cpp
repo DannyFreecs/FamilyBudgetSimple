@@ -23,13 +23,14 @@ ActivityShoppingItem::~ActivityShoppingItem()
 
 void ActivityShoppingItem::on_pushButtonSave_clicked()
 {
-    QVector<QString> itemData;
-    itemData.emplaceBack(QString::number(ui->spinBoxCostItem->valueFromText(ui->spinBoxCostItem->text())));
-    itemData.emplaceBack(ui->textEditComment->toPlainText());
-    itemData.emplaceBack(ui->dateEdit->text());
-    itemData.emplaceBack(_categories.key(ui->comboBoxCategories->currentText()));
+    const int cost = ui->spinBoxCostItem->valueFromText(ui->spinBoxCostItem->text());
+    if (cost < 1)
+    {
+        QMessageBox::warning(nullptr, "Mentés", "Az összeg mezőben 0 Ft szerepel!");
+        return;
+    }
 
-    if (DataBaseHandler::getDbManager()->insertShoppingItem(std::move(itemData)))
+    if (DataBaseHandler::getDbManager()->insertShoppingItem(cost, ui->dateEdit->date(), ui->comboBoxCategories->currentText(), ui->textEditComment->toPlainText()))
     {
         ui->spinBoxCostItem->cleanText();
         ui->textEditComment->clear();

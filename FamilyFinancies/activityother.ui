@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ActivityShoppingItem</class>
- <widget class="QMainWindow" name="ActivityShoppingItem">
+ <class>ActivityOther</class>
+ <widget class="QMainWindow" name="ActivityOther">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -33,10 +33,10 @@
        </widget>
       </item>
       <item>
-       <widget class="CurrencySpinBox" name="spinBoxCostItem">
+       <widget class="CurrencySpinBox" name="spinBoxCost">
         <property name="minimumSize">
          <size>
-          <width>183</width>
+          <width>130</width>
           <height>0</height>
          </size>
         </property>
@@ -47,6 +47,9 @@
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(173, 216, 230);</string>
+        </property>
+        <property name="locale">
+         <locale language="Hungarian" country="Hungary"/>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -54,37 +57,23 @@
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="labelCategory">
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Kategória:</string>
+        <property name="maximum">
+         <number>999999999</number>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBoxCategories">
-        <property name="minimumSize">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>150</width>
-          <height>0</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(173, 216, 230);</string>
-        </property>
-       </widget>
+       </spacer>
       </item>
       <item>
        <widget class="QLabel" name="labelDate">
@@ -122,19 +111,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </item>
     <item>
@@ -158,15 +134,13 @@
     </item>
     <item alignment="Qt::AlignRight">
      <widget class="QPushButton" name="pushButtonSave">
-      <property name="maximumSize">
-       <size>
-        <width>150</width>
-        <height>16777215</height>
-       </size>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(173, 216, 230);
-font: 700 9pt &quot;Segoe UI&quot;;</string>
+       <string notr="true">background-color: rgb(173, 216, 230);</string>
       </property>
       <property name="text">
        <string>Mentés</string>

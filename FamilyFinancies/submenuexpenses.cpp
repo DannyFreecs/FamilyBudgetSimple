@@ -152,6 +152,8 @@ void SubMenuExpenses::onSubMenuChildButtonClicked()
     setFrameToSelectedStyle(ui->frameChildren);
     setSubMenuButtonsToDefaultStyle();
     setSubMenuButtonToSelectedStyle(qobject_cast<QPushButton*>(QObject::sender()));
+
+    emit sendCreateActivityChild(qobject_cast<QPushButton*>(QObject::sender())->text());
 }
 
 void SubMenuExpenses::onSubMenuCarButtonClicked()
@@ -184,6 +186,8 @@ void SubMenuExpenses::on_menuButtonHealthCare_clicked()
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameHealthCare);
     setSubMenuButtonsToDefaultStyle();
+
+    emit sendCreateActivityMedical();
 }
 
 void SubMenuExpenses::on_menuButtonOther_clicked()
@@ -191,6 +195,8 @@ void SubMenuExpenses::on_menuButtonOther_clicked()
     setFramesToDefaultStyle();
     setFrameToSelectedStyle(ui->frameOthers);
     setSubMenuButtonsToDefaultStyle();
+
+    emit sendCreateActivityOther();
 }
 
 void SubMenuExpenses::on_menuButtonPhone_clicked()
