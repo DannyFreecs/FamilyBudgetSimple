@@ -24,7 +24,6 @@ public:
     int getChildId(const QString &child) const;
     int getChildStudyLastCost(const QString &child) const;
 
-
     bool insertShoppingReceipt(QVector<QVector<QString>> &&shoppingData) const;
     bool insertShoppingItem(const int cost, QDate &&date, QString &&category, QString &&comment) const;
     bool insertHouseBills(QString &&house, const QDate &date, QVector<std::pair<QString, int>> &&bills) const;

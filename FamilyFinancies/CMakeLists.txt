@@ -46,6 +46,9 @@ set(PROJECT_SOURCES
         activityother.h
         activityother.cpp
         activityother.ui
+        expensetablewidget.h
+        expensetablewidget.cpp
+        expensetablewidget.ui
         resources.qrc
 )
 
